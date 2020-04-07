@@ -1,5 +1,6 @@
 const EcommerceUser = require('../models/userModel')
 
+//userId param checker method
 exports.userById = (req, res, next, id) => {
     //look for the user with the id parameter
     EcommerceUser.findById(id).exec((err, user) => {

@@ -23,7 +23,7 @@ router.post('/signin', signin)
 // @access  Public
 router.get('/signout', signout)
 
-// @route   GET api/hello
+// @route   TEST api/hello
 // @desc    test protected route
 // @access  Public
 router.get('/hello', requireSignin, (req, res) => {

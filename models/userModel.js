@@ -9,17 +9,17 @@ const userSchema = new mongoose.Schema(
             type: String,
             trim: true,
             maxlength: 32,
-            required: true
+            required: [true, 'Name field is required.']
         },
         email: {
             type: String,
             trim: true,
             unique: true,
-            required: true
+            required: [true, 'Email field is required.']
         },
         hashedPassword: {
             type: String,
-            required: true
+            required: [true, 'Password field is required.']
         },
         about: {
             type: String,

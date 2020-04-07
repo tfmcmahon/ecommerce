@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const expressJwt = require('express-jwt')
 const EcommerceUser = require('../models/userModel')
-const { errorHandler } = require('../helpers/dbErrorHandler')
+const { errorHandler } = require('../helpers/dbErrorHandler') //remove if above works
 
 exports.signup = (req, res) => {
     const user = new EcommerceUser(req.body)
@@ -10,7 +10,7 @@ exports.signup = (req, res) => {
         if (err) {
             return res.status(400)
                       .json({
-                            err: errorHandler(err)
+                            error: errorHandler(err)
                       })
         }
         user.salt = undefined
@@ -62,7 +62,33 @@ exports.signout = (req, res) => {
     })
 }
 
+//require the user to be signed in
 exports.requireSignin = expressJwt({
     secret: process.env.JWT_SECRET,
     userProperty: 'auth'
 })
+
+//require the user id to match the profile id
+exports.isAuth = (req, res, next) => {
+    // we get the profile & auth keys if the user is authenticated, then compare the ids from each
+    let user = req.profile && req.auth && req.profile._id == req.auth._id
+    //user will be a boolean -- if the ids don't match return access denied
+    if (!user) {
+        return res.status(403)
+                  .json({
+                      error: "Access denied."
+                  })
+    }
+    next()
+}
+
+exports.isAdmin = (req, res, next) => {
+    //check the role for admin access
+    if (req.profile.role === 0) {
+        return res.status(403)
+                  .json({
+                      error: "This area is for administrators only."
+                  })
+    }
+    next()
+}

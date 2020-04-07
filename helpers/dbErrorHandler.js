@@ -29,18 +29,16 @@ exports.errorHandler = error => {
     if (error.code) {
         switch (error.code) {
             case 11000:
-                message = 'Email already in use.' //uniqueMessage(error)
-                break
             case 11001:
-                message = 'Name already in use.' //uniqueMessage(error)
+                message = uniqueMessage(error)
                 break
             default:
                 message = 'Something went wrong'
         }
     } else {
-        for (let errorName in error.errorors) {
-            if (error.errorors[errorName].message)
-                message = error.errorors[errorName].message
+        for (let errorName in error.errors) {
+            if (error.errors[errorName].message)
+                message = error.errors[errorName].message
         }
     }
  

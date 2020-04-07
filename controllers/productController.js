@@ -4,6 +4,22 @@ const fs = require('fs')
 const EcommerceProduct = require('../models/productModel')
 const { errorHandler } = require('../helpers/dbErrorHandler') //remove if above works
 
+//whenever there is a productId in paramaters, attach it to the request
+exports.productById = (req, res, next, id) => {
+    EcommerceProduct.findById(id)
+                    .exec((err, product) => {
+                        //if there is an error or no prouct, return an error message
+                        if (err || !product) {
+                            return res.status(400).json({
+                                error: 'Product not found.'
+                            })
+                        }
+                        //otherwise put the product into the request
+                        req.product = product
+                        next()
+                    })
+}
+
 exports.createProduct = (req, res) => {
     let form = new formidable.IncomingForm()
     form.keepExtensions = true
@@ -45,42 +61,12 @@ exports.createProduct = (req, res) => {
     })
 }
 
-//whenever there is a productId in paramaters, attach it to the request
-exports.productById = (req, res, next, id) => {
-    EcommerceProduct.findById(id)
-                    .exec((err, product) => {
-                        //if there is an error or no prouct, return an error message
-                        if (err || !product) {
-                            return res.status(400).json({
-                                error: 'Product not found.'
-                            })
-                        }
-                        //otherwise put the product into the request
-                        req.product = product
-                        next()
-                    })
-}
-
 exports.readProduct = (req, res) => {
     //remove the photo from the product
     if (req.product.photo) {
         req.product.photo = undefined
     }
     return res.json(req.product)
-}
-
-exports.deleteProduct = (req, res) => {
-    let product = req.product
-    product.remove((err, deletedProduct) => {
-        if (err) {
-            return res.status(400).json({
-                error: errorHandler(err)
-            })
-        }
-        res.json({
-            message: 'Product deleted successfully.'
-        })
-    })
 }
 
 exports.updateProduct = (req, res) => {
@@ -121,6 +107,20 @@ exports.updateProduct = (req, res) => {
                           })
             }
             res.json({ data })
+        })
+    })
+}
+
+exports.deleteProduct = (req, res) => {
+    let product = req.product
+    product.remove((err, deletedProduct) => {
+        if (err) {
+            return res.status(400).json({
+                error: errorHandler(err)
+            })
+        }
+        res.json({
+            message: 'Product deleted successfully.'
         })
     })
 }

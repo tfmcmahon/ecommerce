@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
 
-const { 
-    createProduct,
+const {
     productById,
+    createProduct,
     readProduct,
-    deleteProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct
 } = require('../controllers/productController')
 const { requireSignin,
     isAuth,
@@ -19,21 +19,20 @@ const { userById } = require('../controllers/userController')
 // @access  Admin
 router.post('/product/create/:userId', requireSignin, isAuth, isAdmin, createProduct)
 
-// @route   GET api/product/create/productId
+// @route   GET api/product/productId
 // @desc    Read a product
 // @access  Public
 router.get('/product/:productId', readProduct)
 
-// @route   DELETE api/product/productId/userId
-// @desc    Read a product
-// @access  Admin
-router.delete('/product/:productId/:userId', requireSignin, isAuth, isAdmin, deleteProduct)
-
 // @route   PUT api/product/productId/userId
-// @desc    Edit a product
+// @desc    Update a product
 // @access  Admin
 router.put('/product/:productId/:userId', requireSignin, isAuth, isAdmin, updateProduct)
 
+// @route   DELETE api/product/productId/userId
+// @desc    Delete a product
+// @access  Admin
+router.delete('/product/:productId/:userId', requireSignin, isAuth, isAdmin, deleteProduct)
 
 // @route   none
 // @desc    check params for a user id or product id

@@ -1,8 +1,13 @@
 const express = require('express')
 const router = express.Router()
 
-const { 
-    createCategory
+const {
+    categoryById,
+    createCategory,
+    readCategory,
+    updateCategory,
+    deleteCategory,
+    listAllCategories
 } = require('../controllers/categoryController')
 const { requireSignin,
     isAuth,
@@ -15,9 +20,30 @@ const { userById } = require('../controllers/userController')
 // @access  Admin
 router.post('/category/create/:userId', requireSignin, isAuth, isAdmin, createCategory)
 
+// @route   GET api/category/create/userId
+// @desc    Read a category
+// @access  Public
+router.get('/category/:categoryId', readCategory)
+
+// @route   PUT api/category/categoryId/userId
+// @desc    Update a category
+// @access  Admin
+router.put('/category/:categoryId/:userId', requireSignin, isAuth, isAdmin, updateCategory)
+
+// @route   DELETE api/category/categoryId/userId
+// @desc    Delete a category
+// @access  Admin
+router.delete('/category/:categoryId/:userId', requireSignin, isAuth, isAdmin, deleteCategory)
+
+// @route   GET api/category/all
+// @desc    List all categories
+// @access  Public
+router.get('/categories/all', listAllCategories)
+
 // @route   none
-// @desc    check params for a user id
+// @desc    check params for a user id or category id
 // @access  NA
 router.param('userId', userById)
+router.param('categoryId', categoryById)
 
 module.exports = router 

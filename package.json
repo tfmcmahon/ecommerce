@@ -2,24 +2,29 @@
   "name": "ecommerce",
   "version": "1.0.0",
   "description": "A full stack e-commerce app",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client-install": "npm install --prefix client",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tfmcmahon/ecommerce.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Tim McMahon",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tfmcmahon/ecommerce/issues"
   },
   "homepage": "https://github.com/tfmcmahon/ecommerce#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "concurrently": "^5.1.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -31,7 +36,9 @@
     "lodash": "^4.17.15",
     "mongoose": "^5.9.7",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.2",
     "uuidv1": "^1.6.14"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }

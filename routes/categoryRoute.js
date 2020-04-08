@@ -2,11 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 const {
-    categoryById,
     createCategory,
     readCategory,
     updateCategory,
     deleteCategory,
+    categoryById,
     listAllCategories
 } = require('../controllers/categoryController')
 const { requireSignin,

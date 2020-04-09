@@ -1,5 +1,152 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Custom Properties, update these for your own design */
+:root {
+    --ff-primary: 'Source Sans Pro', sans-serif; /* 'ff' stands for font-family */
+    --ff-secondary: 'Source Code Pro', monospace; /* these are from Google Fonts */
+
+    --fw-reg: 300; /*'fw' stands for font-weight*/
+    --fw-bold: 900;
+
+    --clr-light: #fff;
+    --clr-gray: #eee;
+    --clr-dark: #303030;
+    --clr-accent: #412485;
+    --clr-neighbor1: #a3d2e4;
+    --clr-neighbor2: #0C829E;
+    --clr-neighbor3: #334A52;
+    
+
+
+    --fs-h1: 3rem;    /*'fs' stands for font-size*/
+    --fs-h2: 2.25rem;
+    --fs-h3: 1.25rem;
+    --fs-body: 1rem;
+    --fs-small: .5em;
+
+    --bs: 0.25em 0.25em 0.75em rgba(0,0,0,.35), /*'bs' stands for box-shadow*/
+          0.125em 0.125em 0.25em rgba(0,0,0,.25);
+    --bw: 0em 0em 0.15em 0em;
+
+}
+
+@media (min-width: 800px) {
+    :root {
+        --fs-h1: 4.5rem;
+        --fs-h2: 3.75rem;
+        --fs-h3: 1.5rem;
+        --fs-body: 1.125rem;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 9px
+    !important
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--clr-neighbor2);
+    border-radius: 3px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--clr-dark);
+  }
+
+/*------------------------------- Typography -------------------------------*/
+
+h1,
+h2,
+h3 {
+    line-height: 1;
+    margin: 0.5em;
+}
+
+h1 { font-size: var(--fs-h1) }
+h2 { font-size: var(--fs-h2) }
+h3 { font-size: var(--fs-h3) }
+h5 { font-size: var(--fs-h3) }
+
+/*------------------------------- General styles -------------------------------*/
+
+html {
+  scroll-behavior: smooth;
+  height: 100%;
+  position: relative;
+}
+
+body, 
+#root {
+  background: var(--clr-neighbor1);
+  color: var(--clr-dark);
+  margin: 0;
+  font-family: var(--ff-primary);
+  font-size: var(--fs-body);
+  line-height: 1.6em;
+  height: 100%;
+  position: relative;
+  overflow: overlay;
+}
+
+.wrapper {
+  height: 100%;
+  margin-bottom: -5.5rem;
+  display: flex;
+  flex-flow: column;
+  background-color: var(--clr-light);
+}
+
+#root > .wrapper {
+  height: auto; 
+  min-height: 100%;
+}
+
+#main {
+  padding-bottom: 5.5rem;
+}
+
+section {
+  padding: 5em 2em;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+strong {
+  font-weight: bold;
+}
+
+a:link, a:visited {
+  text-transform: uppercase;
+  text-decoration: none;
+  color: inherit;
+  /*transition: transform 150ms ease-in-out;*/
+}
+
+a:hover {
+  transform: scale(1);
+}
+
+:focus {
+  outline: none;
+}
+
 .App {
-  text-align: center;
+  text-align: center; 
+  min-height: 100vh;
+  overflow: hidden;
+  display: block;
+  position: relative;
+
+  /* Equal to height of footer */
+  /* But also accounting for potential margin-bottom of last child */
+  margin-bottom: -5.5rem;
 }
 
 .App-logo {
@@ -7,32 +154,340 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.whiteFill {
+  background: var(--clr-gray);
+  min-height: 10vh;
+  margin-top: -1.1em;
+  text-align: center;
+  flex-grow: 1;
+}
+
+/*------------------------------- Buttons -------------------------------*/
+
+.homeButton,
+.navButton,
+.submitLoginButton {
+  display: inline-block;
+  padding: .5em 1.5em;
+  background: var(--clr-neighbor2);
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  font-size: .8rem;
+  line-height: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: .25em;
+  font-weight: var(--fw-bold);
+  transition: transform 50ms linear;
+  margin: 1em;
+  border-width: 1px;
+  border-bottom-width: 2px;
+  border-color: black
+}
+
+.submitLoginButton {
+  margin-top: 2.5em;
+  align-self: center;
+}
+
+.homeButton {
+  margin-left: 2em;
+  background: var(--clr-neighbor2);
+}
+
+.buttonWrapper {
+  display: flex;
+  align-self: center;
+  height: 4em;
+}
+
+.homeButton:hover,
+.navButton:hover,
+.submitLoginButton:hover {
+  transform: scale(1.05);
+}
+
+.homeButton:active {
+
+}
+
+.navuttonRow {
+  display: flex;
+  justify-content: center;
+  margin-right: .35em;
+}
+
+.buttonMarginHelp {
+  margin-top: -1.5em;
+}
+
+/*------------------------------- Header -------------------------------*/
+
+.App-header {
+  background-color: var(--clr-neighbor3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  height: 5.5rem;
+  margin-bottom: 0;
+  padding: 1em;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.headerHelpType {
+  display: flex;
+  flex-direction: column;
+  margin-top: .2em;
+}
+
+.headerProjectTitle {
+  font-family: var(--ff-primary);
+  font-size: var(--fs-h3);
+  text-transform: uppercase;
+  margin-top: -.2em;
+  margin-bottom: 0em;
+  margin-right: 1em;
+  font-weight: bold;
+}
+
+.headerLink {
+  align-self: center;
+  justify-self: center;
+}
+
+.headerLink:hover {
+  opacity: 0.7;
+  transform: none;
+}
+
+.headerHelp {
+  display: flex;
+}
+
+.smallboldText {
+  color: var(--clr-neighbor2)
+}
+
+.smallboldTextUpper,
+.smallboldTextUpperBlue {
+  text-transform: uppercase;
+  color: var(--clr-accent);
+}
+
+.smallboldTextUpperBlue {
+  color: var(--clr-neighbor2);
+  line-height: .5em;
+}
+
+.blueTextWrapper + .blueTextWrapper {
+  margin-top: -1em;
+}
+
+.headerGithub {
+  padding-left: 1em;
+  align-self: center;
+}
+
+.headerGithub:hover {
+  opacity: 0.7;
+  transform: scale(1);
+}
+
+/*------------------------------- Log in -------------------------------*/
+
+.login {
+  margin-top: 5vh;
+  text-align: center;
+}
+
+.loginWrapper {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.loginForm {
+  margin: 1em;
+  padding: 1em 2em 1em;
+  border-style: solid;
+  border-width: 1px;
+  border-bottom-width: 2px;
+  border-color: var(--clr-neighbor3);
+  border-radius: 3px;
+  min-height: 325px;
+  max-width: 28rem;
+  max-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.loginFormHelp {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginForm  {
+  min-width: 22rem;
+}
+
+.loginTitle {
+  text-transform: uppercase;
+  align-self: center;
+  margin-bottom: 1em;
+}
+
+.submitUsername {
+  border-style: solid;
+  border-width: 1px;
+  border-bottom-width: 2px;
+  border-color: var(--clr-neighbor3);
+  border-radius: 2px;
+  padding: .5em;
+  margin-bottom: -1em;
+}
+
+.registerLinkText {
+  font-size: var(--fs-small);
+  margin: auto;
+  align-self: center;
+  justify-self: center;
+  line-height: 1.5em;
+}
+
+/*------------------------------- Rules -------------------------------*/
+
+.verticalRule {
+  background: linear-gradient(
+      0deg, 
+      rgba(51, 74, 82, 0) 5%, 
+      var(--clr-neighbor3) 15%, 
+      var(--clr-neighbor3) 85%, 
+      rgba(51, 74, 82, 0) 95%
+    );
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    width: 2px;
+    justify-self: center;
+}
+
+.verticalRuleSmall {
+  background: linear-gradient(
+    0deg, 
+    rgba(51, 74, 82, 0) 10%, 
+    var(--clr-neighbor3) 30%, 
+    var(--clr-neighbor3) 70%, 
+    rgba(51, 74, 82, 0) 90%
+  );
+  width: 1px;
+  height: auto;
+}
+
+.verticalRuleSmallWhite {
+  background: linear-gradient(
+    0deg, 
+    rgba(255, 255, 255, 0) 10%, 
+    white 30%, 
+    white 70%, 
+    rgba(255, 255, 255, 0) 90%
+  );
+  width: 1px;
+  height: auto;
+}
+
+.horizontalRule {
+  background: linear-gradient(
+    90deg, 
+    rgba(51, 74, 82, 0) 10%, 
+    var(--clr-neighbor2) 30%, 
+    var(--clr-neighbor2) 70%, 
+    rgba(51, 74, 82, 0) 90%
+  );
+  height: 1px;
+  margin-bottom: .5em;
+}
+
+.horizontalRuleSmall {
+  background: linear-gradient(
+    90deg, 
+    rgba(51, 74, 82, 0) 30%, 
+    var(--clr-neighbor3) 40%, 
+    var(--clr-neighbor3) 60%, 
+    rgba(51, 74, 82, 0) 70%
+  );
+  height: 1px;
+  margin-bottom: .5em;
+}
+
+/*------------------------------- SVGs -------------------------------*/
+
+.transitionImage {
+  filter: invert(93%) sepia(11%) saturate(1907%) hue-rotate(167deg) brightness(92%) contrast(94%);
+  transform: scale(-1) translateY(-.5em);
+  max-width: 100%;
+}
+
+.landingImage {
+  filter: invert(99%) sepia(9%) saturate(222%) hue-rotate(200deg) brightness(112%) contrast(87%);
+  transform: scale(-1);
+  max-width: 100%;
+}
+
+/*------------------------------- Footer -------------------------------*/
+
+.footer {
+  background: var(--clr-neighbor3);
+  color: var(--clr-light);
+  text-align: center;
+  width: 100%;
+  height: 5.5rem;
+  position: relative;
+  padding: 1em 0;
+  margin-top: -5.5rem; /* negative value of footer height */
+  clear: both;
+} 
+
+.footer a { 
+  color: inherit;
+  text-decoration: none;
+}
+
+.footerLink {
+  font-weight: var(--fw-bold);
+}
+
+.footerLink:hover,
+.socialListLink:hover {
+  opacity: 0.7;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}
+
+.socialList {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0em 0 0;
+  padding: 0;
+}
+
+.socialListItem {
+  margin: 0 1em;
+}
+
+.socialListlink {
+  padding: 10em;
 }

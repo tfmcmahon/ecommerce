@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
+import { logout, isAuthenticated } from '../../actions/authActions'
 
 //helper method which compares current page to history so that the active menu item can be highlighted
 const isActive = (history, path) => {
@@ -33,24 +34,42 @@ const Nav = ({ history }) => { //history is destructured from props
                 </div>
 
                 <div className="headerHelp">
-                    <div className="navButtonRow">
-                        <Link to='/register'> 
-                            <button
-                                style={isActive(history, '/register')}
-                                className="navButton"
-                            >
-                                Register
-                            </button>
-                        </Link>
-                        <Link to='/login'> 
-                            <button
-                                style={isActive(history, '/login')}
-                                className="navButton"
-                            >
-                                Login
-                            </button>
-                        </Link>
-                    </div>
+
+                    {!isAuthenticated() && 
+                        <div className="navButtonRow">
+                            <Link to='/register'> 
+                                <button
+                                    style={isActive(history, '/register')}
+                                    className="navButton"
+                                >
+                                    Register
+                                </button>
+                            </Link>
+                            <Link to='/login'> 
+                                <button
+                                    style={isActive(history, '/login')}
+                                    className="navButton"
+
+                                >
+                                    Login
+                                </button>
+                            </Link>
+
+                        </div>
+                    }
+
+                    {isAuthenticated() && 
+                        <button
+                            style={{ cursor: 'pointer', background: '#303030' }}
+                            className="navButton"
+                            onClick={() => logout(() => {
+                                history.push('/')
+                            })}
+                        >
+                            Logout
+                        </button>
+                    }
+
                     <div className="verticalRuleSmallWhite"></div>
                     <Link to='/'> 
                         <button

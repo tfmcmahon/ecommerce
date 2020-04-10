@@ -7,16 +7,13 @@ const uniqueMessage = error => {
     let output
     
     try {
-        let fieldName = error.message.substring(
-            error.message.lastIndexOf('.$') + 2,
-            error.message.lastIndexOf('_1')
+        let fieldName = error.errmsg.substring(
+            error.errmsg.lastIndexOf('index: ') + 7,
+            error.errmsg.lastIndexOf('_1')
         )
-        output =
-            fieldName.charAt(0).toUpperCase() + // capitalize first letter
-            fieldName.slice(1) +
-            ' already exists'
+        output = fieldName + ' already in use.'
     } catch (ex) {
-        output = 'Unique field already exists'
+        output = 'Unique field already in use.'
     }
  
     return output
@@ -25,7 +22,6 @@ const uniqueMessage = error => {
 // Get the erroror message from error object
 exports.errorHandler = error => {
     let message = ''
- 
     if (error.code) {
         switch (error.code) {
             case 11000:
@@ -33,7 +29,7 @@ exports.errorHandler = error => {
                 message = uniqueMessage(error)
                 break
             default:
-                message = 'Something went wrong'
+                message = 'Something went wrong.'
         }
     } else {
         for (let errorName in error.errors) {

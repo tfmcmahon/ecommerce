@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { requireSignin,
+const { requireLogin,
     isAuth,
     isAdmin
 } = require('../controllers/authController')
@@ -13,7 +13,7 @@ const { userById,
 // @route   GET api/user/secret/:userId
 // @desc    test route
 // @access  Private
-router.get('/user/secret/:userId', requireSignin, isAuth, isAdmin, (req, res) => {
+router.get('/user/secret/:userId', requireLogin, isAuth, isAdmin, (req, res) => {
    res.json({
        user: req.profile
    }) 
@@ -22,12 +22,12 @@ router.get('/user/secret/:userId', requireSignin, isAuth, isAdmin, (req, res) =>
 // @route   GET api/user/:userId
 // @desc    Get user profile
 // @access  Private
-router.get('/user/:userId', requireSignin, isAuth, readUser)
+router.get('/user/:userId', requireLogin, isAuth, readUser)
 
 // @route   PUT api/user/:userId
 // @desc    Update user profile
 // @access  Private
-router.put('/user/:userId', requireSignin, isAuth, updateUser)
+router.put('/user/:userId', requireLogin, isAuth, updateUser)
 
 // @route   none
 // @desc    check params for a user id

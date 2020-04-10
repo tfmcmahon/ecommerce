@@ -3,7 +3,7 @@ const expressJwt = require('express-jwt')
 const EcommerceUser = require('../models/userModel')
 const { errorHandler } = require('../helpers/dbErrorHandler') //remove if above works
 
-exports.signup = (req, res) => {
+exports.register = (req, res) => {
     const user = new EcommerceUser(req.body)
     user.save((err, user) => {
         //on error, send to the error helper to generate db error message
@@ -21,7 +21,7 @@ exports.signup = (req, res) => {
     })
 }
 
-exports.signin = (req, res) => {
+exports.login = (req, res) => {
     //find by email
     const { email, password } = req.body
     EcommerceUser.findOne({ email }, (err, user) => {
@@ -54,7 +54,7 @@ exports.signin = (req, res) => {
     })
 }
 
-exports.signout = (req, res) => {
+exports.logout = (req, res) => {
     //clear the cookie
     res.clearCookie('json web token')
     res.json({
@@ -63,7 +63,7 @@ exports.signout = (req, res) => {
 }
 
 //require the user to be signed in
-exports.requireSignin = expressJwt({
+exports.requireLogin = expressJwt({
     secret: process.env.JWT_SECRET,
     userProperty: 'auth'
 })

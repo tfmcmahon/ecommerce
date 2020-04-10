@@ -9,7 +9,7 @@ const {
     categoryById,
     listAllCategories
 } = require('../controllers/categoryController')
-const { requireSignin,
+const { requireLogin,
     isAuth,
     isAdmin,
 } = require('../controllers/authController')
@@ -18,7 +18,7 @@ const { userById } = require('../controllers/userController')
 // @route   POST api/category/create/userId
 // @desc    Create a category
 // @access  Admin
-router.post('/category/create/:userId', requireSignin, isAuth, isAdmin, createCategory)
+router.post('/category/create/:userId', requireLogin, isAuth, isAdmin, createCategory)
 
 // @route   GET api/category/create/userId
 // @desc    Read a category
@@ -28,12 +28,12 @@ router.get('/category/:categoryId', readCategory)
 // @route   PUT api/category/categoryId/userId
 // @desc    Update a category
 // @access  Admin
-router.put('/category/:categoryId/:userId', requireSignin, isAuth, isAdmin, updateCategory)
+router.put('/category/:categoryId/:userId', requireLogin, isAuth, isAdmin, updateCategory)
 
 // @route   DELETE api/category/categoryId/userId
 // @desc    Delete a category
 // @access  Admin
-router.delete('/category/:categoryId/:userId', requireSignin, isAuth, isAdmin, deleteCategory)
+router.delete('/category/:categoryId/:userId', requireLogin, isAuth, isAdmin, deleteCategory)
 
 // @route   GET api/category/all
 // @desc    List all categories

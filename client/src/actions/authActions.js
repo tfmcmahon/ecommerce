@@ -41,10 +41,11 @@ export const login = user => {
             })
 }
 
-export const authenticate = (token, next) => {
+export const authenticate = (data, next) => {
     //put the web token into local storage
     if (typeof window !== 'undefined') {
-        localStorage.setItem('jwt', token)
+        localStorage.setItem('jwt', data.token)
+        localStorage.setItem('user', JSON.stringify(data.user))
     }
     next()
 }
@@ -60,10 +61,19 @@ export const isAuthenticated = () => {
     }
 }
 
+export const getUser = () => {
+    if (localStorage.getItem('jwt')) {
+        return JSON.parse(localStorage.getItem('user'))
+    } else {
+        return false
+    }
+}
+
 export const logout = (next) => {
     //remove the token from local storage
     if (typeof window !== 'undefined') {
         localStorage.removeItem('jwt')
+        localStorage.removeItem('user')
         next()
         options.url = `${API}/logout`
         options.method = 'GET'

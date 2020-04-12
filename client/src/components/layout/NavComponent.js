@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { logout, isAuthenticated } from '../../actions/authActions'
+import { logout, isAuthenticated, getUser } from '../../actions/authActions'
+import { get } from 'mongoose'
 
 //helper method which compares current page to history so that the active menu item can be highlighted
 const isActive = (history, path) => {
@@ -22,7 +23,7 @@ const Nav = ({ history }) => { //history is destructured from props
                             <p className="headerProjectTitle">App</p>
                         </div>
                     </Link>
-                    <div className="verticalRuleSmallWhite"></div>
+                    <div className="verticalRuleSmallWhiteLeft"></div>
                     <a 
                         className='headerGithub' 
                         href='https://github.com/tfmcmahon/ecommerce'
@@ -34,6 +35,30 @@ const Nav = ({ history }) => { //history is destructured from props
                 </div>
 
                 <div className="headerHelp">
+
+                    {isAuthenticated() && getUser().role === 0 &&
+                        <Link to='/user/dashboard'> 
+                            <button
+                                style={isActive(history, '/user/dashboard')}
+                                className="homeButton"
+                            >
+                                Dashboard
+                            </button>
+                        </Link>
+                    }
+                    
+                    {isAuthenticated() && getUser().role === 1 &&
+                        <Link to='/admin/dashboard'> 
+                            <button
+                                style={isActive(history, '/admin/dashboard')}
+                                className="homeButton"
+                            >
+                                Dashboard
+                            </button>
+                        </Link>
+                    }
+
+                    <div className="verticalRuleSmallWhite"></div>
 
                     {!isAuthenticated() && 
                         <div className="navButtonRow">
@@ -49,7 +74,6 @@ const Nav = ({ history }) => { //history is destructured from props
                                 <button
                                     style={isActive(history, '/login')}
                                     className="navButton"
-
                                 >
                                     Login
                                 </button>
@@ -80,8 +104,6 @@ const Nav = ({ history }) => { //history is destructured from props
                         </button>
                     </Link>
                 </div>
-
-
             </header> 
         </div>
     )

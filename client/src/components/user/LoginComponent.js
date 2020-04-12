@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Layout from '../layout/LayoutComponent'
 import { Link, withRouter, Redirect } from 'react-router-dom'
-import { login, authenticate } from '../../actions/authActions'
+import { login, authenticate, getUser, isAuthenticated } from '../../actions/authActions'
 
 import Transition from '../../images/transition1.svg'
 
@@ -16,6 +16,7 @@ const Login = () => {
     })
 
     let { email, password, error, loading, redirectToReferrer } = values
+    let { role } = getUser()
 
     const handleChange = () => event => {
         let { name, value } = event.target
@@ -31,6 +32,7 @@ const Login = () => {
         setValues({ ...values, error: false, loading: true })
         login({ email, password })
             .then(data => {
+                console.log(data.data)
                 if (data.data.error) {       //if the backend throws an error, put it into the state
                     setValues({
                         ...values,
@@ -38,7 +40,7 @@ const Login = () => {
                         loading: false
                     })
                 } else {                    //if no error, authenticate the user by passing the token to the authenticate action
-                    authenticate(data.data.token, () => {
+                    authenticate(data.data, () => {
                         setValues({
                             ...values,
                             redirectToReferrer: true
@@ -101,7 +103,15 @@ const Login = () => {
     )
 
     const redirectUser = () => {
+        //check the user role and redirect accordingly after successful login
         if (redirectToReferrer) {
+            if (role && role === 1) {
+                return <Redirect to='/admin/dashboard' />
+            } else {
+                return <Redirect to='user/dashboard' />
+            }
+        }
+        if (isAuthenticated()) {
             return <Redirect to='/' />
         }
     }

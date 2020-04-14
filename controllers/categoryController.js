@@ -18,9 +18,11 @@ exports.categoryById = (req, res, next, id) => {
 }
 
 exports.createCategory = (req, res) => {
+    console.log('req', req.body)
     const category = new EcommerceCategory(req.body)
     category.save((err, data) => {
         if (err) {
+            console.log('err', err)
             return res.status(400)
                       .json({
                           error: errorHandler(err)

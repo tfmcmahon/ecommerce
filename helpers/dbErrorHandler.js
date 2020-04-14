@@ -11,7 +11,7 @@ const uniqueMessage = error => {
             error.errmsg.lastIndexOf('index: ') + 7,
             error.errmsg.lastIndexOf('_1')
         )
-        output = fieldName + ' already in use.'
+        output = `That ${fieldName} is already in use.`
     } catch (ex) {
         output = 'Unique field already in use.'
     }

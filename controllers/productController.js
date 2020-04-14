@@ -158,13 +158,12 @@ exports.listProducts = (req, res) => {
         : 6
 
     let sortObject= {
-        sortBy: order
+        [sortBy]: order
     }
-        
     EcommerceProduct.find()
                     .select('-photo')                //remove the photos so to save time, we will handle elsewhere
                     .populate('category')            //adds the category, we can do this since we defined category in the product shcema
-                    .sort(sortString)                //sort the result by the queries
+                    .sort(sortObject)                //sort the result by the queries
                     .limit(limit)                    //limit the amount of results
                     .exec((err, products) => {
                         if (err) {
@@ -229,7 +228,7 @@ exports.listProductsBySearch = (req, res) => {
     let findArgs = {}
 
     let sortObject= {
-        sortBy: order
+        [sortBy]: order
     }
  
     // console.log(order, sortBy, limit, skip, req.body.filters);
@@ -268,6 +267,7 @@ exports.listProductsBySearch = (req, res) => {
 }
 
 exports.productPhoto = (req, res, next) => {
+    console.log('req', req.product.photo.contentType)
     if (req.product.photo.data) {
         res.set('Content-Type', req.product.photo.contentType)
         return res.send(req.product.photo.data)

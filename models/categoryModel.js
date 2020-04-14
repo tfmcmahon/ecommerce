@@ -7,7 +7,9 @@ const categorySchema = new mongoose.Schema(
             type: String,
             trim: true,
             maxlength: 32,
-            required: [true, 'Name field is required.']
+            lowercase: true,
+            required: [true, 'Name field is required.'],
+            unique: [true, 'That category already exists.']
         }
     }, 
     { timestamps: true }

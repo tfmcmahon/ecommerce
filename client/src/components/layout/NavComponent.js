@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { logout, isAuthenticated, getUser } from '../../actions/authActions'
-import { get } from 'mongoose'
 
 //helper method which compares current page to history so that the active menu item can be highlighted
 const isActive = (history, path) => {

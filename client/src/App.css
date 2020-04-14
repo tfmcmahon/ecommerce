@@ -27,7 +27,7 @@
     --fs-h2: 1.5rem;
     --fs-h3: 1.25rem;
     --fs-body: 1rem;
-    --fs-small: .5em;
+    --fs-small: .8em;
 
     --bs: 0.25em 0.25em 0.75em rgba(0,0,0,.35), /*'bs' stands for box-shadow*/
           0.125em 0.125em 0.25em rgba(0,0,0,.25);
@@ -164,13 +164,15 @@ a:hover {
   min-height: 10vh;
   text-align: center;
   flex-grow: 1;
+  margin-top: -1px;
 }
 
 /*------------------------------- Buttons -------------------------------*/
 
 .homeButton,
 .navButton,
-.submitLoginButton {
+.submitLoginButton,
+.productButton {
   display: inline-block;
   padding: .5em 1.5em;
   background: var(--clr-neighbor2);
@@ -193,7 +195,8 @@ a:hover {
 @media (max-width: 855px) {
   .homeButton,
   .navButton,
-  .submitLoginButton {
+  .submitLoginButton,
+  .productButton {
     font-size: .6rem;
     margin: .5em;
     height: 40px;
@@ -205,8 +208,14 @@ a:hover {
   align-self: center;
 }
 
-.homeButton {
-  background: var(--clr-neighbor2);
+.productButton {
+  background: var(--clr-neighbor1);
+  color: var(--clr-dark);
+  margin-bottom: 0em;
+}
+
+.navButton {
+  background: var(--clr-dark);
 }
 
 .buttonWrapper {
@@ -217,7 +226,8 @@ a:hover {
 
 .homeButton:hover,
 .navButton:hover,
-.submitLoginButton:hover {
+.submitLoginButton:hover,
+.productButton:hover {
   transform: scale(1.05);
 }
 
@@ -507,6 +517,201 @@ a:hover {
   font-size: var(--fs-body);
 }
 
+/*------------------------------- Category & Product-------------------------------*/
+
+.categoryForm {
+  margin: 1em;
+  padding: 1em 2em 1em;
+  border-style: solid;
+  border-width: 1px;
+  border-bottom-width: 2px;
+  border-color: var(--clr-neighbor3);
+  border-radius: 3px;
+  min-height: 225px;
+  max-height: 50vh;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+}
+
+.submitPhoto {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.submitPhoto + label {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: var(--clr-light);
+  background-color: var(--clr-neighbor2);
+  display: inline-block;
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1px;
+  border-bottom-width: 2px;
+  border-color: var(--clr-dark);
+  border-radius: 2px;
+  margin-bottom: -.5em;
+  transition: 0.2s;
+  text-transform: uppercase;
+  font-size: var(--fs-body);
+}
+
+.submitPhoto:focus + label,
+.submitPhoto + label:hover {
+  background-color: var(--clr-neighbor3);
+}
+
+.productDescription {
+  border-style: solid;
+  border-width: 1px;
+  border-bottom-width: 2px;
+  border-color: var(--clr-neighbor3);
+  border-radius: 2px;
+  padding: .5em;
+  font-family: var(--ff-secondary);
+  font-size: .8rem;
+  margin-bottom: -1em;
+  outline: none;
+  padding: .5em;
+  resize: none;
+  overflow: auto;
+  min-height: 10vh;
+  font-family: var(--ff-primary);
+}
+
+.submitUsernamePrice {
+  border-style: solid;
+  border-width: 1px;
+  border-bottom-width: 2px;
+  border-color: var(--clr-neighbor3);
+  border-radius: 2px;
+  padding: .5em;
+  margin-bottom: -1em;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+select {
+  text-transform: capitalize;
+}
+
+select:invalid {
+  color: rgb(110, 110, 110);
+}
+
+select:focus {
+  color: var(--clr-dark); /* color when focused */
+}
+select option:first-child{
+  display: none;
+}
+
+.submitUsername option:checked{
+  color: var(--clr-dark); /* color when selected but not focused */
+}
+
+/*------------------------------- Product Cards -------------------------------*/
+
+.productCardWrapper {
+  margin-top: -1px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background: var(--clr-gray);
+}
+
+.productCategoryHeader{
+  text-transform: uppercase;
+  text-align: center;
+  margin: 1em;
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+}
+
+.productCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 1em;
+  border-style: solid;
+  border-width: 1px;
+  border-bottom-width: 2px;
+  border-color: var(--clr-neighbor3);
+  border-radius: 3px;
+  background: var(--clr-light);
+  width: 300px;
+  height: 514px;
+}
+
+.productCardHeader {
+  text-transform: uppercase;
+  background: var(--clr-neighbor2);
+  color: var(--clr-light);
+  margin: 0px;
+  padding: .5em;
+  border-bottom: 2px solid var(--clr-dark);
+  height: 50px;
+  width: 100%
+}
+
+.productCardUnderHeader {
+  display: flex;
+  flex-direction: column;
+  grid-template-rows: 50px;
+  align-items: center;
+  text-align: center;
+  justify-content: space-between;
+  padding: 1em;
+  width: 300px;
+  height: 464px;
+}
+
+.productCardInfo {
+
+  font-size: var(--fs-small);
+  width: 250px;
+}
+
+.productText {
+  
+}
+
+.productCardPrice {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-bold);
+}
+
+.productButtonRow {
+}
+
+.productImageWrapper {
+  height: 200px;
+  align-content: center;
+}
+
+.productImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 200px;
+}
+
 /*------------------------------- Rules -------------------------------*/
 
 .verticalRule {
@@ -561,6 +766,18 @@ a:hover {
   height: 1px;
 }
 
+.horizontalRuleProduct {
+  background: linear-gradient(
+    90deg, 
+    rgba(51, 74, 82, 0) 10%, 
+    var(--clr-neighbor2) 30%, 
+    var(--clr-neighbor2) 70%, 
+    rgba(51, 74, 82, 0) 90%
+  );
+  height: 1px;
+  width: 100%;
+}
+
 .horizontalRuleSmall {
   background: linear-gradient(
     90deg, 
@@ -593,10 +810,17 @@ a:hover {
   max-width: 100%;
 }
 
+.landingImageFlip {
+  filter: invert(99%) sepia(9%) saturate(222%) hue-rotate(200deg) brightness(112%) contrast(87%);
+  transform: scale(1);
+  max-width: 100%;
+}
+
 .loadingWrapper {
   display: flex;
   justify-content: center;
   background: var(--clr-gray);
+  margin-top: -1px;
 }
 
 .loading {

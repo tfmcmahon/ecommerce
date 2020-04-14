@@ -62,7 +62,7 @@ router.post('/products/search', listProductsBySearch)
 // @route   GET api/product/photo/productId
 // @desc    Get the product photo
 // @access  Public
-router.get('/products/photo/:productId', productPhoto)
+router.get('/product/photo/:productId', productPhoto)
 
 // @route   none
 // @desc    check params for a user id or product id

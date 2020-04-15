@@ -94,12 +94,12 @@ const Nav = ({ history }) => { //history is destructured from props
                     }
 
                     <div className="verticalRuleSmallWhite"></div>
-                    <Link to='/'> 
+                    <Link to='/shop'> 
                         <button
-                            style={isActive(history, '/')}
+                            style={isActive(history, '/shop')}
                             className="homeButton"
                         >
-                            Home
+                            Shop
                         </button>
                     </Link>
                 </div>

@@ -8,6 +8,7 @@ import Landing from './components/layout/LandingComponent'
 import Nav from './components/layout/NavComponent'
 import Footer from './components/layout/FooterComponent'
 import Dashboard from './components/user/DashboardComponent'
+import Shop from './components/shop/ShopComponent'
 import AdminDashboard from './components/admin/AdminDashboardComponent'
 import AddCategory from './components/admin/AddCategoryComponent'
 import AddProduct from './components/admin/AddProductComponent'
@@ -21,6 +22,7 @@ const Routes = () => {
                 <Nav />
                 <Switch>
                     <Route exact path='/' component={Landing} />
+                    <Route exact path='/shop' component={Shop} />
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/register' component={Register} />
                     <PrivateRoute exact path='/user/dashboard' component={Dashboard} />

@@ -18,8 +18,7 @@ const AddProduct = () => {
         quantity: '',
         photo: '',
         loading: false,
-        createdProduct: '',
-        redirectToProfile: false
+        createdProduct: ''
     })
     const [error, setError] = useState('')
     const [formData, setFormData] = useState('')
@@ -31,13 +30,9 @@ const AddProduct = () => {
         name,
         description,
         price,
-        photo,
-        category,
-        shipping,
         quantity,
         loading,
-        createdProduct,
-        redirectToProfile,
+        createdProduct
     } = values
 
     //destructure user and token from local storage

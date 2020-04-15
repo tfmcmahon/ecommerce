@@ -6,7 +6,7 @@ import { getUser } from '../../actions/authActions'
 
 const Dashboard = () => {
 
-    let { _id, name, email, role } = getUser()
+    let { name, email, role } = getUser()
 
     const userLinks = () => {
         return (

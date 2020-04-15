@@ -12,7 +12,7 @@ const ProductCard = ({product}) => {
                 <div className='horizontalRuleProduct'></div>
                 <div className='productCardInfo'>
                     <p className='productText'>
-                        {product.description}
+                        {product.description.substring(0, 100)}
                     </p>
                 </div>
                 <div className='horizontalRuleProduct'></div>

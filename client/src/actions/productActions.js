@@ -42,3 +42,25 @@ export const getProducts = (sortBy) => {
                 return err.response
             })
 }
+
+export const getFilteredProducts = (skip, limit, filters = {}) => {
+    const data = {
+        limit,
+        skip,
+        filters
+    }
+    options.url = `${API}/products/search`
+    options.method = 'POST'
+    options.data = JSON.stringify(data)
+    options.headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    }
+    return axios(options)
+            .then(response => {
+                return response
+            })
+            .catch(err => {
+                return err.response
+            })
+}

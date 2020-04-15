@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 
-const Checkbox = ({ categories }) => {
+const CategoryFilter = ({ categories, handleFilters }) => {
     const [checked, setChecked] = useState([])
 
     const handleToggle = categoryId => ()=> {
@@ -15,8 +15,9 @@ const Checkbox = ({ categories }) => {
         } else {
             newCheckedCategoryId.splice(currentCategoryId, 1)
         }
-        console.log(newCheckedCategoryId)
+        //console.log(newCheckedCategoryId)
         setChecked(newCheckedCategoryId)
+        handleFilters(newCheckedCategoryId) //send the filters back to the parent component
     }
 
     return (
@@ -37,4 +38,4 @@ const Checkbox = ({ categories }) => {
     )
 }
 
-export default Checkbox
+export default CategoryFilter

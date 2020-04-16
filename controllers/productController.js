@@ -274,3 +274,28 @@ exports.productPhoto = (req, res, next) => {
     }
     next()
 }
+
+exports.listProductsByUserSearch = (req, res) => {
+    //create object to hold search input and category select
+    const searchObject = {}
+    //assign search input to query.name and category value to query.category
+    if (req.query.search) {
+        searchObject.name = {
+            $regex: req.query.search,       //create a regex based on the search input from the user
+            $options: 'i'                   //ignore case
+        }
+        if (req.query.category && req.query.category != 'All') {
+            searchObject.category = req.query.category
+        }
+        // perform a db search with the search object
+        EcommerceProduct.find(searchObject, (err, products) => {
+            if (err) {
+                return res.status(400)
+                          .json({
+                              error: errorHandler(err)
+                          })
+            }
+            res.json(products)
+        }).select('-photo')
+    }
+}

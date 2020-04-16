@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Layout from './LayoutComponent'
 import { getProducts } from '../../actions/productActions'
 import ProductCard from '../product/ProductCardComponent'
+import SearchBar from './SearchComponent'
 import Transition from '../../images/transition1.svg'
 
 const Landing = () => {
@@ -43,16 +44,18 @@ const Landing = () => {
         title='Home Page'
         description='MERN E-commerce App'
         >
-            <h3 className="productCategoryHeader">New Arrivals</h3>
+            <SearchBar />
             <img src={Transition} alt="transition graphic" className="landingImage"></img>
+            <h3 className="productCategoryHeader">New Arrivals</h3>
             <div className='productCardWrapper'>
                 {productsByArrival.map((product, index) => (
                     <ProductCard key={index} product={product}/>
                 ))}
             </div>
-            <img src={Transition} alt="transition graphic" className="landingImageFlip"></img>
+            <div className='landingRuleWrapper'>
+                <div className='horizontalRule'></div>
+            </div>
             <h3 className="productCategoryHeader">Top Sellers</h3>
-            <img src={Transition} alt="transition graphic" className="landingImage"></img>
             <div className='productCardWrapper'>
                 {productsBySold.map((product, index) => (
                     <ProductCard key={index} product={product}/>

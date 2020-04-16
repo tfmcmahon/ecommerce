@@ -172,7 +172,8 @@ a:hover {
 .homeButton,
 .navButton,
 .submitLoginButton,
-.productButton {
+.productButton,
+.searchButton {
   display: inline-block;
   padding: .5em 1.5em;
   background: var(--clr-neighbor2);
@@ -196,7 +197,8 @@ a:hover {
   .homeButton,
   .navButton,
   .submitLoginButton,
-  .productButton {
+  .productButton,
+  .searchButton {
     font-size: .6rem;
     margin: .5em;
     height: 40px;
@@ -218,6 +220,12 @@ a:hover {
   background: var(--clr-dark);
 }
 
+.searchButton {
+  background: var(--clr-accent);
+  border: none;
+  height: 2.4rem;
+}
+
 .buttonWrapper {
   display: flex;
   align-self: center;
@@ -227,7 +235,8 @@ a:hover {
 .homeButton:hover,
 .navButton:hover,
 .submitLoginButton:hover,
-.productButton:hover {
+.productButton:hover,
+.searchButton:hover {
   transform: scale(1.05);
 }
 
@@ -246,7 +255,7 @@ a:hover {
   color: white;
   height: 5.5rem;
   margin-bottom: 0;
-  padding: 1em;
+  padding: .5em;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
 }
@@ -627,7 +636,8 @@ select option:first-child{
 
 /*------------------------------- Product Cards -------------------------------*/
 
-.productCardWrapper {
+.productCardWrapper,
+.whiteCardWrapper {
   margin-top: -1px;
   display: flex;
   flex-wrap: wrap;
@@ -635,12 +645,32 @@ select option:first-child{
   background: var(--clr-gray);
 }
 
-.productCategoryHeader{
+.whiteCardWrapper {
+  background: var(--clr-light);
+}
+
+.productCategoryHeader,
+.productCategoryHeaderWhite {
   text-transform: uppercase;
   text-align: center;
-  margin: 1em;
+  padding: .5em;
+  margin: 0;
+  margin-top: -1px;
   font-size: var(--fs-h2);
   font-weight: var(--fw-bold);
+  background: var(--clr-gray);
+}
+
+.productCategoryHeaderWhite {
+  background: var(--clr-light);
+  font-size: var(--fs-h3);
+  padding-bottom: 0px;
+}
+
+.productCategoryDisplayWhite {
+  font-size: var(--fs-small);
+  text-align: center;
+  margin-top: 0;
 }
 
 .productCard {
@@ -683,7 +713,6 @@ select option:first-child{
 }
 
 .productCardInfo {
-
   font-size: var(--fs-small);
   width: 250px;
 }
@@ -714,16 +743,35 @@ select option:first-child{
 
 /*------------------------------- Shop -------------------------------*/
 
+.whiteFillHelp {
+  position: absolute;
+  background: var(--clr-light);
+  min-height: 10vh;
+  flex-grow: 1;
+  margin-top: -1px;
+  width: 20%;
+  border-right: 1px solid var(--clr-gray2);
+}
+
 .shopWrapper {
   display: flex;
+  background: var(--clr-gray);
 }
 
 .leftSideBarWrapper {
-  width: 20%
+  width: 20%;
+  background: var(--clr-light);
+  border-right: 1px solid var(--clr-gray2);
+  min-height: calc(100vh - 88px);
+  margin-bottom: -3em;
 }
 
 .shopDisplayWrapper {
-  width: 80%
+  width: 80%;
+}
+
+.filterCategoryHeader {
+  text-transform: uppercase;
 }
 
 .checkboxList,
@@ -879,6 +927,67 @@ select option:first-child{
   background: var(--clr-gray);
 }
 
+/*------------------------------- Search Form -------------------------------*/
+
+.searchInputWrapper {
+  display: flex;
+  flex-grow: 1;
+}
+
+.searchFormWrapper {
+  background-color: var(--clr-neighbor1);
+  width: 80vw;
+  margin: 2em auto;
+  border-radius: 3px;
+  border: 1px solid var(--clr-dark);
+  border-bottom-width: 2px;
+}
+
+.searchForm {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.searchSpan {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.searchInput {
+  flex-grow: 1;
+  margin: auto 1em;
+  border-radius: 2px;
+  border: 0;
+  height: 2.4rem;
+  padding: .5em 1em;
+  font-family: var(--ff-primary);
+}
+
+.searchSelectWrapper {
+  margin: auto .7em;
+  height: 2.4rem;
+}
+
+.searchSelect {
+  border-radius: 2px;
+  border: 0;
+  height: 2.4rem;
+  padding: .5em 1em;
+  font-family: var(--ff-primary);
+  outline: none;
+  font-weight: var(--fw-bold);
+  cursor:pointer;
+  display:inline-block;
+  position:relative;
+}
+
+.searchDropdown {
+  outline: none;
+  border: none;
+}
+
 
 /*------------------------------- Rules -------------------------------*/
 
@@ -934,6 +1043,17 @@ select option:first-child{
   height: 1px;
 }
 
+.horizontalRuleGray {
+  background: linear-gradient(
+    90deg, 
+    var(--clr-gray) 10%, 
+    var(--clr-neighbor2) 30%, 
+    var(--clr-neighbor2) 70%, 
+    var(--clr-gray) 90%
+  );
+  height: 1px;
+}
+
 .horizontalRuleProduct {
   background: linear-gradient(
     90deg, 
@@ -958,6 +1078,11 @@ select option:first-child{
   margin-bottom: .5em;
 }
 
+.landingRuleWrapper {
+  height: 2em;
+  background: var(--clr-gray);
+}
+
 @media (max-width: 855px) {
   .verticalRuleSmallWhiteLeft{
     display: none;
@@ -975,6 +1100,12 @@ select option:first-child{
 .landingImage {
   filter: invert(99%) sepia(9%) saturate(222%) hue-rotate(200deg) brightness(112%) contrast(87%);
   transform: scale(-1);
+  max-width: 100%;
+}
+
+.landingImageWhite {
+  filter: invert(100%);
+  transform: scale(1);
   max-width: 100%;
 }
 

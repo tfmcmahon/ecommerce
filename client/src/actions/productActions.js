@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { API } from '../config/config'
+import queryString from 'query-string'
 
 let options = {
     url: '',
@@ -35,7 +36,6 @@ export const getProducts = (sortBy) => {
     options.headers = ''
     return axios(options)
             .then(response => {
-                console.log(response)
                 return response
             })
             .catch(err => {
@@ -56,6 +56,20 @@ export const getFilteredProducts = (skip, limit, filters = {}) => {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     }
+    return axios(options)
+            .then(response => {
+                return response
+            })
+            .catch(err => {
+                return err.response
+            })
+}
+
+export const getSearchedProducts = searchData => {
+    const query = queryString.stringify(searchData)
+    options.url = `${API}/products/user/search?${query}`
+    options.method = 'GET'
+    options.headers = ''
     return axios(options)
             .then(response => {
                 return response

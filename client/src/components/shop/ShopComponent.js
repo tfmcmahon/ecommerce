@@ -105,14 +105,15 @@ const Shop = () => {
         >
             <div className='shopWrapper'>
                 <div className='leftSideBarWrapper'>
-                    <h3 className='filterCategoryHeader'>Filter by Category</h3>
+                    <h3 className='filterCategoryHeader'>Category</h3>
                     <ul className='checkboxList'>
                         <CategoryFilter 
                             categories={categories} 
                             handleFilters={filters => handleFilters(filters, 'category')}
                         />
                     </ul>
-                    <h3 className='filterCategoryHeader'>Filter by Price</h3>
+                    <div className='horizontalRule'></div>
+                    <h3 className='filterCategoryHeader'>Price</h3>
                     <ul className='radioList'>
                         <PriceFilter 
                             prices={prices} 
@@ -122,17 +123,19 @@ const Shop = () => {
                 </div>
                 <div className='shopDisplayWrapper'>
                     <h3>Products</h3>
+                    <img src={Transition} alt="transition graphic" className="landingImageWhite"></img>
                     <div className='productCardWrapper'>
                         { filteredResults.map((product, index) => (
                             <ProductCard key={index} product={product}/>
                         )) }
                     </div>
-                    <div className='horizontalRule'></div>
+                    <div className='horizontalRuleGray'></div>
                     <div className='getMoreWrapper'>
                         {getMoreButton()}
                     </div>
                 </div>
             </div>
+            <div className='whiteFillHelp'></div>
         </Layout>
     )
 }

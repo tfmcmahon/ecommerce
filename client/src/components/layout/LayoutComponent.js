@@ -7,11 +7,7 @@ const Layout = ({
     children 
 }) => {
     return (
-        <div>
-            <div className=''>
-            </div>
-            <div className={className}>{children}</div>
-        </div>
+            <div className='layoutWrapper'>{children}</div>
     )
 }
 

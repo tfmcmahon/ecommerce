@@ -11,6 +11,7 @@ const {
     listRelatedProducts,
     listProductCategories,
     listProductsBySearch,
+    listProductsByUserSearch,
     productPhoto
 } = require('../controllers/productController')
 const { requireLogin,
@@ -58,6 +59,11 @@ router.get('/products/categories', listProductCategories)
 // @desc    List products per search
 // @access  Public
 router.post('/products/search', listProductsBySearch)
+
+// @route   POST api/products/search
+// @desc    List products per search
+// @access  Public
+router.get('/products/user/search', listProductsByUserSearch)
 
 // @route   GET api/product/photo/productId
 // @desc    Get the product photo

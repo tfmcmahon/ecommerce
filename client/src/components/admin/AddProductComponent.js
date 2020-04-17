@@ -46,7 +46,7 @@ const AddProduct = () => {
                 if (data.data.error) {          //if the backend throws an error, put it into the state
                     setError(data.data.error)
                 } else {                        //if no error, set form data and categories
-                    setFormData(new FormData)
+                    setFormData(new FormData())
                     setCategories(data.data.data)
                 }
             })

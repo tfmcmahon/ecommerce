@@ -69,16 +69,13 @@ const Dashboard = () => {
     return (
         <Layout
         title='Dashboard'
-        description='User Dashboard'
+        description={`Welcome, ${name}!`}
         >
             <div className="loginWrapper">
                 <div className='dashboardRow'>
-                    <h3 className='dashboardHeader'>Dashboard</h3>
-                    <p className='dashboardSubheader'>{`Welcome, ${name}!`}</p>
                 </div>
             </div>
-            <img src={Transition} alt="transition graphic" className="landingImage"></img>
-            <div className='dashboardWrapper'>
+             <div className='dashboardWrapper'>
                 {userInfo()}
                 {userLinks()}
                 {userHistory()}

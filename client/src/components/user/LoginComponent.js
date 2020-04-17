@@ -118,13 +118,12 @@ const Login = () => {
 
     return (
         <Layout 
-        title='Registration Page'
-        description='Register for the MERN E-commerce App'
+        title='Login Page'
+        description='Login to the App'
         >
             <div className="login">
                 <div className="loginWrapper">
                     <div className="loginForm">
-                        <h3 className="loginTitle">Login</h3>
                             {loginForm()}
                     </div>
                 </div>
@@ -141,7 +140,6 @@ const Login = () => {
                     </Link>
                 </p>
                 <br />
-                <img src={Transition} alt="transition graphic" className="landingImage"></img>
                 {showLoading()}
                 {redirectUser()}
             </div>

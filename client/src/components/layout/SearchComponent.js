@@ -1,5 +1,4 @@
 import React, { useState, useEffect, Fragment } from 'react'
-import Layout from './LayoutComponent'
 import { getSearchedProducts } from '../../actions/productActions'
 import { getCategories } from '../../actions/categoryActions'
 import ProductCard from '../product/ProductCardComponent'

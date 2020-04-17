@@ -3,7 +3,6 @@ import Layout from './LayoutComponent'
 import { getProducts } from '../../actions/productActions'
 import ProductCard from '../product/ProductCardComponent'
 import SearchBar from './SearchComponent'
-import Transition from '../../images/transition1.svg'
 
 const Landing = () => {
     //state setup
@@ -27,6 +26,7 @@ const Landing = () => {
         getProducts('createdAt')
         .then(data => {
             if (data.data.error) {          //if the backend throws an error, put it into the state
+                console.log(error)
                 setError(data.data.error)
             } else {                        //if no error, set the product state
                 setProductsByArrival(data.data)
@@ -45,21 +45,23 @@ const Landing = () => {
         description='MERN E-commerce App'
         >
             <SearchBar />
-            <img src={Transition} alt="transition graphic" className="landingImage"></img>
-            <h3 className="productCategoryHeader">New Arrivals</h3>
-            <div className='productCardWrapper'>
-                {productsByArrival.map((product, index) => (
-                    <ProductCard key={index} product={product}/>
-                ))}
+            <div className='horizontalRule'></div>
+            <div className='sectionWrapper'>
+                <h3 className="productCategoryHeader">New Arrivals</h3>
+                <div className='productCardWrapper'>
+                    {productsByArrival.map((product, index) => (
+                        <ProductCard key={index} product={product}/>
+                    ))}
+                </div>
             </div>
-            <div className='landingRuleWrapper'>
                 <div className='horizontalRule'></div>
-            </div>
-            <h3 className="productCategoryHeader">Top Sellers</h3>
-            <div className='productCardWrapper'>
-                {productsBySold.map((product, index) => (
-                    <ProductCard key={index} product={product}/>
-                ))}
+            <div className='sectionWrapper'>
+                <h3 className="productCategoryHeader">Top Sellers</h3>
+                <div className='productCardWrapper'>
+                    {productsBySold.map((product, index) => (
+                        <ProductCard key={index} product={product}/>
+                    ))}
+                </div>
             </div>
         </Layout>
     )

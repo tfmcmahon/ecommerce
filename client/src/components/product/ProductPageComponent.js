@@ -26,6 +26,7 @@ const ProductPage = (props) => {
                     getRelatedProducts(data.data._id)
                         .then(related => {
                             if (related.data.error) {
+                                console.log(error)
                                 setError(related.data.error)
                             } else {
                                 setRelatedProducts(related.data)
@@ -90,11 +91,13 @@ const ProductPage = (props) => {
                 </div>
             </div>
             <img src={Transition} alt="transition graphic" className="landingImage"></img>
-            <h3 className='productCategoryHeader'>Related Products</h3>
-            <div className='relatedProductsWrapper'>
-                {relatedProducts.map((product, index) => (
-                    <ProductCard key={index} product={product}/>
-                ))}
+            <div className='sectionWrapper'>
+                <h3 className='productCategoryHeader'>Related Products</h3>
+                <div className='relatedProductsWrapper'>
+                    {relatedProducts.map((product, index) => (
+                        <ProductCard key={index} product={product}/>
+                    ))}
+                </div>
             </div>
         </Layout>
     )

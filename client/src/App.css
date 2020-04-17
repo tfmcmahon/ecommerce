@@ -160,7 +160,7 @@ a:hover {
 }
 
 .whiteFill {
-  background: var(--clr-gray);
+  background: var(--clr-light);
   min-height: 10vh;
   text-align: center;
   flex-grow: 1;
@@ -173,9 +173,10 @@ a:hover {
 .navButton,
 .submitLoginButton,
 .productButton,
-.searchButton {
+.searchButton,
+.cartButton {
   display: inline-block;
-  padding: .5em 1.5em;
+  padding: .5em 1em;
   background: var(--clr-neighbor2);
   color: white;
   text-decoration: none;
@@ -226,6 +227,10 @@ a:hover {
   height: 2.4rem;
 }
 
+.cartButton {
+  background: var(--clr-accent);
+}
+
 .buttonWrapper {
   display: flex;
   align-self: center;
@@ -236,7 +241,8 @@ a:hover {
 .navButton:hover,
 .submitLoginButton:hover,
 .productButton:hover,
-.searchButton:hover {
+.searchButton:hover,
+.cartButton:hover {
   transform: scale(1.05);
 }
 
@@ -338,6 +344,45 @@ a:hover {
   }
 }
 
+.cartSuperScript {
+  line-height: 0;
+  background: var(--clr-light);
+  color: var(--clr-dark);
+  padding: 1px 4px;
+  border-radius: 15px;
+}
+
+.pageTitle,
+.pageTitleShop {
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0;
+  padding-top: 2em;
+  font-size: var(--fs-h3);
+  line-height: 1em;
+  background: var(--clr-gray);
+}
+
+.pageDescription,
+.pageDescriptionShop {
+  text-align: center;
+  margin: 0;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-reg);
+  text-transform: uppercase;
+  background: var(--clr-gray);
+  color: var(--clr-neighbor2)
+}
+
+.pageTitleShop,
+.pageDescriptionShop {
+  background: var(--clr-light);
+}
+
+.pageTitleShop {
+  padding-top: .5em;
+}
+
 /*------------------------------- Log in -------------------------------*/
 
 .login {
@@ -416,7 +461,7 @@ a:hover {
 
 .dashboardWrapper,
 .dashboardWrapperAdmin {
-  background: var(--clr-gray);
+  background: var(--clr-light);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
@@ -611,8 +656,7 @@ input[type=number] {
 
 input[type=number]::-webkit-inner-spin-button, 
 input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
+
 }
 
 select {
@@ -636,13 +680,22 @@ select option:first-child{
 
 /*------------------------------- Product Cards -------------------------------*/
 
+.sectionWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -1px;
+}
+
 .productCardWrapper,
 .whiteCardWrapper {
-  margin-top: -1px;
+  margin-top: 1em;
+  margin-bottom: 1em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background: var(--clr-gray);
+  background: var(--clr-light);
+
 }
 
 .whiteCardWrapper {
@@ -654,11 +707,11 @@ select option:first-child{
   text-transform: uppercase;
   text-align: center;
   padding: .5em;
-  margin: 0;
-  margin-top: -1px;
-  font-size: var(--fs-h2);
-  font-weight: var(--fw-bold);
-  background: var(--clr-gray);
+  margin: 1em;
+  font-size: var(--fs-h3);
+  background: var(--clr-neighbor1);
+  border-radius: 3px;
+  padding: .5em 2em;
 }
 
 .productCategoryHeaderWhite {
@@ -812,7 +865,7 @@ select option:first-child{
 }
 
 .relatedProductsWrapper {
-  margin-top: -1px;
+  margin-top: 1em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -821,7 +874,9 @@ select option:first-child{
 
 /*------------------------------- Shop -------------------------------*/
 
-.whiteFillHelp {
+.whiteFillHelp,
+.whiteFillHelpCart,
+.whiteFillHelpCartLarge {
   position: absolute;
   background: var(--clr-light);
   min-height: 10vh;
@@ -831,21 +886,40 @@ select option:first-child{
   border-right: 1px solid var(--clr-gray2);
 }
 
+.whiteFillHelpCart,
+.whiteFillHelpCartLarge {
+  width: 100%
+}
+
+.whiteFillHelpCartLarge {
+  min-height: 50vh;
+}
+
 .shopWrapper {
   display: flex;
-  background: var(--clr-gray);
 }
 
 .leftSideBarWrapper {
   width: 20%;
-  background: var(--clr-light);
-  border-right: 1px solid var(--clr-gray2);
+  background: linear-gradient(
+    0deg, 
+    rgba(255, 255, 255, 0)10%, 
+    var(--clr-gray) 20%, 
+    var(--clr-gray) 80%, 
+    rgba(255, 255, 255, 0) 100%
+  );
   min-height: calc(100vh - 88px);
   margin-bottom: -3em;
 }
 
+.stickyFilters {
+  position: fixed;
+  top: 30%;
+}
+
 .shopDisplayWrapper {
   width: 80%;
+  background: var(--clr-light);
 }
 
 .filterCategoryHeader {
@@ -1002,7 +1076,6 @@ select option:first-child{
 .getMoreWrapper{
   display: flex;
   justify-content: center;
-  background: var(--clr-gray);
 }
 
 /*------------------------------- Search Form -------------------------------*/
@@ -1066,6 +1139,59 @@ select option:first-child{
   border: none;
 }
 
+/*------------------------------- Cart -------------------------------*/
+
+.cartWrapper {
+  display: flex;
+}
+
+.cartLeft {
+  width: 50%;
+}
+
+.cartRight {
+  width: 50%;
+}
+
+.itemLength {
+  text-align: center;
+}
+
+.cartIncrementWrapper {
+  display: flex;
+  margin-top: 0;
+  justify-content: center;
+}
+
+.incrementSpan {
+  font-size: var(--fs-small);
+  background: var(--clr-gray2);
+  padding: 0 .5em;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  text-transform: uppercase;
+  border: 1px solid var(--clr-neighbor3);
+  border-right: none;
+  user-select: none;
+}
+
+.incrementInput {
+  padding: 0 .5em;
+  width: 3em;
+  text-align: center;
+  border: none; /* <-- This thing here */
+  border: 1px solid var(--clr-neighbor3);
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.checkoutCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 1em;
+}
 
 /*------------------------------- Rules -------------------------------*/
 
@@ -1073,17 +1199,34 @@ select option:first-child{
   background: linear-gradient(
       0deg, 
       rgba(51, 74, 82, 0) 5%, 
-      var(--clr-neighbor3) 15%, 
-      var(--clr-neighbor3) 85%, 
+      var(--clr-neighbor2) 15%, 
+      var(--clr-neighbor2) 85%, 
       rgba(51, 74, 82, 0) 95%
     );
     grid-column-start: 3;
     grid-column-end: 4;
     grid-row-start: 2;
     grid-row-end: 3;
-    width: 2px;
+    width: 1px;
     justify-self: center;
 }
+
+.verticalRuleShop {
+  background: linear-gradient(
+      0deg, 
+      rgba(255, 255, 255, 0) 0%, 
+      var(--clr-gray2) 20%, 
+      var(--clr-gray2) 80%, 
+      rgba(255, 255, 255, 0) 100%
+    );
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    width: 1px;
+    justify-self: center;
+}
+
 
 .verticalRuleSmall {
   background: linear-gradient(
@@ -1191,6 +1334,7 @@ select option:first-child{
   filter: invert(99%) sepia(9%) saturate(222%) hue-rotate(200deg) brightness(112%) contrast(87%);
   transform: scale(1);
   max-width: 100%;
+  margin-top: -1px;
 }
 
 .loadingWrapper {

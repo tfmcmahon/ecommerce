@@ -1,5 +1,4 @@
-import React, { useState, Fragment } from 'react'
-import ProductImage from '../product/ImageComponent'
+import React, { useState } from 'react'
 
 
 const PriceFilter = ({ prices, handleFilters }) => {

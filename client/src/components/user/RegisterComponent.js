@@ -130,7 +130,6 @@ const Register = () => {
             <div className="login">
                 <div className="loginWrapper">
                     <div className="loginForm">
-                        <h3 className="loginTitle">Register</h3>
                             {registrationFrom()}
                     </div>
                 </div>
@@ -147,7 +146,6 @@ const Register = () => {
                     </Link>
                 </p>
                 <br />
-                <img src={Transition} alt="transition graphic" className="landingImage"></img>
             </div>
         </Layout>
     )

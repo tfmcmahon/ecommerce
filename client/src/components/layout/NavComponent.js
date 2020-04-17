@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { logout, isAuthenticated, getUser } from '../../actions/authActions'
+import { cartItemTotal } from '../../actions/cartActions'
 
 //helper method which compares current page to history so that the active menu item can be highlighted
 const isActive = (history, path) => {
@@ -100,6 +101,17 @@ const Nav = ({ history }) => { //history is destructured from props
                             className="homeButton"
                         >
                             Shop
+                        </button>
+                    </Link>
+                    <Link to='/cart'> 
+                        <button
+                            style={isActive(history, '/cart')}
+                            className="homeButton"
+                        >
+                            <i className="fas fa-shopping-cart"></i>
+                            {cartItemTotal() > 0 &&
+                            <sup className='cartSuperScript'>{cartItemTotal()}</sup>
+                            }
                         </button>
                     </Link>
                 </div>

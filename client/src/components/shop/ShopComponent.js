@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import Layout from '../layout/LayoutComponent'
 import { getCategories } from '../../actions/categoryActions'
 import { getFilteredProducts } from '../../actions/productActions'
 import ProductCard from '../product/ProductCardComponent'
+import Layout from '../layout/LayoutComponent'
 import CategoryFilter from './CategoryFilterComponent'
 import PriceFilter from './PriceFilterComponent'
 import { prices } from '../../config/prices'
@@ -28,6 +28,7 @@ const Shop = () => {
         getCategories()
             .then(data => {
                 if (data.data.error) {          //if the backend throws an error, put it into the state
+                    console.log(error)
                     setError(data.data.error)
                 } else {                        //if no error, set categories
                     setCategories(data.data.data)
@@ -77,7 +78,7 @@ const Shop = () => {
         const newFilters = {...userFilters}         //store the user filters state onto a proxy
         newFilters.filters[filterBy] = filters      //update the proxy filters by category
 
-        if (filterBy == 'price') {
+        if (filterBy === 'price') {
             let priceValues = handlePrice(filters)
             newFilters.filters[filterBy] = priceValues 
         }
@@ -99,43 +100,43 @@ const Shop = () => {
     }
 
     return (
-        <Layout 
-        title='Shop Page'
-        description='MERN E-commerce App'
+        <Layout
+            title='Shop'
+            description='filter the product database'
         >
             <div className='shopWrapper'>
                 <div className='leftSideBarWrapper'>
-                    <h3 className='filterCategoryHeader'>Category</h3>
-                    <ul className='checkboxList'>
-                        <CategoryFilter 
-                            categories={categories} 
-                            handleFilters={filters => handleFilters(filters, 'category')}
-                        />
-                    </ul>
-                    <div className='horizontalRule'></div>
-                    <h3 className='filterCategoryHeader'>Price</h3>
-                    <ul className='radioList'>
-                        <PriceFilter 
-                            prices={prices} 
-                            handleFilters={filters => handleFilters(filters, 'price')}
-                        />
-                    </ul>
+                    <div className='stickyFilters'>
+                        <h3 className='filterCategoryHeader'>Category</h3>
+                        <ul className='checkboxList'>
+                            <CategoryFilter 
+                                categories={categories} 
+                                handleFilters={filters => handleFilters(filters, 'category')}
+                            />
+                        </ul>
+                        <div className='horizontalRule'></div>
+                        <h3 className='filterCategoryHeader'>Price</h3>
+                        <ul className='radioList'>
+                            <PriceFilter 
+                                prices={prices} 
+                                handleFilters={filters => handleFilters(filters, 'price')}
+                            />
+                        </ul>
+                    </div>
                 </div>
+                <div className='verticalRuleShop'></div>
                 <div className='shopDisplayWrapper'>
-                    <h3>Products</h3>
-                    <img src={Transition} alt="transition graphic" className="landingImageWhite"></img>
                     <div className='productCardWrapper'>
                         { filteredResults.map((product, index) => (
                             <ProductCard key={index} product={product}/>
                         )) }
                     </div>
-                    <div className='horizontalRuleGray'></div>
+                    <div className='horizontalRuleShop'></div>
                     <div className='getMoreWrapper'>
                         {getMoreButton()}
                     </div>
                 </div>
             </div>
-            <div className='whiteFillHelp'></div>
         </Layout>
     )
 }

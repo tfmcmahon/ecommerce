@@ -1,15 +1,16 @@
 import React from 'react'
 import { API } from '../../config/config'
 
-const ProductImage = ({ item, url }) => {
+const LargeProductImage = ({ item, url }) => {
 
     if (item._id) {
         return (
-            <div className='productImageWrapper'>
+            item &&
+            <div className='productPageImageWrapper'>
                 <img 
                     src={`${API}/${url}/photo/${item._id}`} 
                     alt={item.name}
-                    className='productImage'
+                    className='productPageImage'
                 />
             </div>
         )
@@ -18,4 +19,4 @@ const ProductImage = ({ item, url }) => {
     }
 }
 
-export default ProductImage
+export default LargeProductImage

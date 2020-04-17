@@ -7,6 +7,7 @@ const { errorHandler } = require('../helpers/dbErrorHandler') //remove if above 
 //whenever there is a productId in paramaters, attach it to the request
 exports.productById = (req, res, next, id) => {
     EcommerceProduct.findById(id)
+                    .populate('category')
                     .exec((err, product) => {
                         //if there is an error or no prouct, return an error message
                         if (err || !product) {

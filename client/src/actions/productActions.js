@@ -78,3 +78,29 @@ export const getSearchedProducts = searchData => {
                 return err.response
             })
 }
+
+export const getSingleProduct = (productId) => {
+    options.url = `${API}/product/${productId}`
+    options.method = 'GET'
+    options.headers = ''
+    return axios(options)
+            .then(response => {
+                return response
+            })
+            .catch(err => {
+                return err.response
+            })
+}
+
+export const getRelatedProducts = (productId) => {
+    options.url = `${API}/products/related/${productId}`
+    options.method = 'GET'
+    options.headers = ''
+    return axios(options)
+            .then(response => {
+                return response
+            })
+            .catch(err => {
+                return err.response
+            })
+}

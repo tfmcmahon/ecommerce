@@ -20,7 +20,7 @@ const ProductCard = ({product}) => {
                     ${product.price}
                 </div>
                 <div className='productButtonRow'>
-                    <Link to='/'>
+                    <Link to={`/product/${product._id}`}>
                         <button
                             className="productButton"
                         >

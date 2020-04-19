@@ -14,7 +14,8 @@ const {
     listProductsByUserSearch,
     productPhoto
 } = require('../controllers/productController')
-const { requireLogin,
+const { 
+    requireLogin,
     isAuth,
     isAdmin,
 } = require('../controllers/authController')

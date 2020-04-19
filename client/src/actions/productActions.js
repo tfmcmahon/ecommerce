@@ -30,7 +30,7 @@ export const createProduct = (userId, token, product) => {
             })
 }
 
-export const getProducts = (sortBy) => {
+export const getProducts = sortBy => {
     options.url = `${API}/products?sortBy=${sortBy}&order=desc&limit=6`
     options.method = 'GET'
     options.headers = ''
@@ -79,7 +79,7 @@ export const getSearchedProducts = searchData => {
             })
 }
 
-export const getSingleProduct = (productId) => {
+export const getSingleProduct = productId => {
     options.url = `${API}/product/${productId}`
     options.method = 'GET'
     options.headers = ''
@@ -92,7 +92,7 @@ export const getSingleProduct = (productId) => {
             })
 }
 
-export const getRelatedProducts = (productId) => {
+export const getRelatedProducts = productId => {
     options.url = `${API}/products/related/${productId}`
     options.method = 'GET'
     options.headers = ''

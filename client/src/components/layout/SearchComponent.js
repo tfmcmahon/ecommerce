@@ -92,7 +92,7 @@ const SearchBar = () => {
                 </Fragment>
                 )
         }
-        if (searched && results.length == 1) {
+        if (searched && results.length === 1) {
             return (
                 <Fragment>
                     <h3 className="productCategoryHeaderWhite">

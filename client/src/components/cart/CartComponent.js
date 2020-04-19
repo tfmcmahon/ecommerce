@@ -39,7 +39,7 @@ const Cart = () => {
             <div className='horizontalRule'></div>
             <div className='whiteCardWrapper'>
                 <Link to='/shop'>
-                    <button className='navButton'>
+                    <button className='payButton'>
                         Shop
                     </button>
                 </Link>
@@ -67,7 +67,11 @@ const Cart = () => {
                     <p className='itemLength'>Cart summary</p>
                     <div className='horizontalRule'></div>
                     <div className='whiteCardWrapper'>
-                        <Checkout products={items} />
+                        <Checkout 
+                            products={items}
+                            setRun={setRun}
+                            run={run}
+                        />
                     </div>
                 </div>
                 </div>

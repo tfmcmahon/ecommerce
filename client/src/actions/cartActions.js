@@ -55,7 +55,7 @@ export const updateCartItem = (productId, count) => {
     }
 }
 
-export const removeCartItem = (productId) => {
+export const removeCartItem = productId => {
     let cart = []                                                   //make a storage variable for the cart
     if (typeof window !== 'undefined') {
         if (localStorage.getItem('cart')) {
@@ -69,4 +69,11 @@ export const removeCartItem = (productId) => {
         localStorage.setItem('cart', JSON.stringify(cart))
     }
     return cart
+}
+
+export const emptyCart = next => {
+    if (typeof window !== 'undefined') {                            //check that we are in a web browser so that we can access local storage
+        localStorage.removeItem('cart')
+        next()
+    }
 }

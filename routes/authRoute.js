@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
 
-const { register, 
+const { 
+    register, 
     login, 
     logout,
     requireLogin
@@ -22,12 +23,5 @@ router.post('/login', login)
 // @desc    User sign out
 // @access  Public
 router.get('/logout', logout)
-
-// @route   TEST api/hello
-// @desc    test protected route
-// @access  Public
-router.get('/hello', requireLogin, (req, res) => {
-    res.send('working')
-})
 
 module.exports = router 

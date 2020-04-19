@@ -9,7 +9,8 @@ const {
     categoryById,
     listAllCategories
 } = require('../controllers/categoryController')
-const { requireLogin,
+const { 
+    requireLogin,
     isAuth,
     isAdmin,
 } = require('../controllers/authController')

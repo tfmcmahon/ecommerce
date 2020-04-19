@@ -6,7 +6,7 @@ import Layout from '../layout/LayoutComponent'
 import CategoryFilter from './CategoryFilterComponent'
 import PriceFilter from './PriceFilterComponent'
 import { prices } from '../../config/prices'
-import Transition from '../../images/transition1.svg'
+
 
 const Shop = () => {
     //state setup

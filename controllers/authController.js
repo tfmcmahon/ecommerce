@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 const expressJwt = require('express-jwt')
 const EcommerceUser = require('../models/userModel')
-const { errorHandler } = require('../helpers/dbErrorHandler') //remove if above works
+const { errorHandler } = require('../helpers/dbErrorHandler')
 
 exports.register = (req, res) => {
     const user = new EcommerceUser(req.body)

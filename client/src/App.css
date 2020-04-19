@@ -174,7 +174,8 @@ a:hover {
 .submitLoginButton,
 .productButton,
 .searchButton,
-.cartButton {
+.cartButton,
+.payButton {
   display: inline-block;
   padding: .5em 1em;
   background: var(--clr-neighbor2);
@@ -199,7 +200,8 @@ a:hover {
   .navButton,
   .submitLoginButton,
   .productButton,
-  .searchButton {
+  .searchButton,
+  .payButton {
     font-size: .6rem;
     margin: .5em;
     height: 40px;
@@ -227,6 +229,12 @@ a:hover {
   height: 2.4rem;
 }
 
+.payButton {
+  background: var(--clr-accent);
+  padding: .5em 2em;
+  font-size: var(--fs-body);
+}
+
 .cartButton {
   background: var(--clr-accent);
 }
@@ -242,12 +250,17 @@ a:hover {
 .submitLoginButton:hover,
 .productButton:hover,
 .searchButton:hover,
-.cartButton:hover {
+.cartButton:hover,
+.payButton:hover {
   transform: scale(1.05);
 }
 
 .buttonMarginHelp {
   margin-top: -1.5em;
+}
+
+.payButtonWrapper {
+  height: 450px;
 }
 
 /*------------------------------- Header -------------------------------*/
@@ -281,7 +294,6 @@ a:hover {
   margin-right: 1em;
   font-weight: bold;
 }
-
 
 .headerLink {
   align-self: center;
@@ -1193,6 +1205,16 @@ select option:first-child{
   margin: 1em;
 }
 
+.checkoutTotal{
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0;
+  font-size: var(--fs-h3);
+  background: var(--clr-neighbor1);
+  border-radius: 3px;
+  padding: .5em 2em;
+}
+
 /*------------------------------- Rules -------------------------------*/
 
 .verticalRule {
@@ -1340,7 +1362,6 @@ select option:first-child{
 .loadingWrapper {
   display: flex;
   justify-content: center;
-  background: var(--clr-gray);
   margin-top: -1px;
 }
 
@@ -1440,6 +1461,10 @@ select option:first-child{
   -ms-animation: fadein 1s; /* Internet Explorer */
   -o-animation: fadein 1s; /* Opera < 12.1 */
   animation: fadein 1s;
+}
+
+.errorWrapperPayment {
+  margin-top: 2em;
 }
 
 @keyframes fadein {

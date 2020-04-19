@@ -69,7 +69,7 @@ export const getUser = () => {
     }
 }
 
-export const logout = (next) => {
+export const logout = next => {
     //remove the token from local storage
     if (typeof window !== 'undefined') {
         localStorage.removeItem('jwt')

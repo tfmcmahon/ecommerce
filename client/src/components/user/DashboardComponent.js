@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../layout/LayoutComponent'
-import Transition from '../../images/transition1.svg'
 import { getUser } from '../../actions/authActions'
 
 const Dashboard = () => {

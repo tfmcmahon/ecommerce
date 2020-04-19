@@ -3,8 +3,6 @@ import Layout from '../layout/LayoutComponent'
 import { Link, withRouter, Redirect } from 'react-router-dom'
 import { login, authenticate, getUser, isAuthenticated } from '../../actions/authActions'
 
-import Transition from '../../images/transition1.svg'
-
 
 const Login = () => {
     const [values, setValues] = useState({
@@ -32,7 +30,6 @@ const Login = () => {
         setValues({ ...values, error: false, loading: true })
         login({ email, password })
             .then(data => {
-                console.log(data.data)
                 if (data.data.error) {       //if the backend throws an error, put it into the state
                     setValues({
                         ...values,

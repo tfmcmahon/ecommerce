@@ -3,8 +3,6 @@ import Layout from '../layout/LayoutComponent'
 import { Link, withRouter } from 'react-router-dom'
 import { register } from '../../actions/authActions'
 
-import Transition from '../../images/transition1.svg'
-
 
 const Register = () => {
     const [values, setValues] = useState({

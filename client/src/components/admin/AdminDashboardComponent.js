@@ -24,6 +24,12 @@ const AdminDashboard = () => {
                             <span className='dashboardCategory'>Create Product</span>
                         </Link>
                     </li>
+                    <div className="horizontalRule"></div>
+                    <li className='dashboardListLink'>
+                        <Link to='/admin/orders'>
+                            <span className='dashboardCategory'>Manage Orders</span>
+                        </Link>
+                    </li>
                 </ul>
             </div>
         )
@@ -55,16 +61,9 @@ const AdminDashboard = () => {
 
     return (
         <Layout
-        title='Dashboard'
-        description='User Dashboard'
+        title='Admin Dashboard'
+        description={`Welcome, ${name}! Create Categories, Products, and view Orders`}
         >
-            <div className="loginWrapper">
-                <div className='dashboardRow'>
-                    <h3 className='dashboardHeader'>Dashboard</h3>
-                    <p className='dashboardSubheader'>{`Welcome, ${name}!`}</p>
-                </div>
-            </div>
-            <img src={Transition} alt="transition graphic" className="landingImage"></img>
             <div className='dashboardWrapperAdmin'>
                 {adminInfo()}
                 {adminLinks()}

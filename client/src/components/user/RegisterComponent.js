@@ -48,7 +48,7 @@ const Register = () => {
             })
     }
 
-    const registrationFrom = () => (
+    const registrationForm = () => (
         <form 
         noValidate 
         className="loginFormHelp" 
@@ -128,7 +128,7 @@ const Register = () => {
             <div className="login">
                 <div className="loginWrapper">
                     <div className="loginForm">
-                            {registrationFrom()}
+                            {registrationForm()}
                     </div>
                 </div>
                 {showServerMessage()}

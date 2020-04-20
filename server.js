@@ -14,6 +14,7 @@ const userRoute = require('./routes/userRoute')
 const categoryRoute = require('./routes/categoryRoute')
 const productRoute = require('./routes/productRoute')
 const braintreeRoute = require('./routes/braintreeRoute')
+const orderRoute = require('./routes/orderRoute')
 
 //define app
 const app = express()
@@ -22,7 +23,8 @@ const app = express()
 mongoose.connect(process.env.DB, {
     useNewUrlParser: true,
     useCreateIndex: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 })
 .then(() => console.log('DB connected'))
 
@@ -39,6 +41,7 @@ app.use('/api', userRoute)
 app.use('/api', categoryRoute)
 app.use('/api', productRoute)
 app.use('/api', braintreeRoute)
+app.use('/api', orderRoute)
 
 //listener
 const port = process.env.PORT || 8000

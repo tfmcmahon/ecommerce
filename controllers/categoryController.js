@@ -1,5 +1,5 @@
 const EcommerceCategory = require('../models/categoryModel')
-const { errorHandler } = require('../helpers/dbErrorHandler') //remove if above works
+const { errorHandler } = require('../helpers/dbErrorHandler')
 
 //whenever there is a category id param, attach it to the request
 exports.categoryById = (req, res, next, id) => {

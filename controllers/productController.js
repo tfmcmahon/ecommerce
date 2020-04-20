@@ -268,7 +268,6 @@ exports.listProductsBySearch = (req, res) => {
 }
 
 exports.productPhoto = (req, res, next) => {
-    console.log('req', req.product.photo.contentType)
     if (req.product.photo.data) {
         res.set('Content-Type', req.product.photo.contentType)
         return res.send(req.product.photo.data)
@@ -299,4 +298,32 @@ exports.listProductsByUserSearch = (req, res) => {
             res.json(products)
         }).select('-photo')
     }
+}
+
+exports.updateQuantityAndSold = (req, res, next) => {
+    //map through all of the products in the order (attached to the request) 
+    //in order to get the DB update options for each one
+    let bulkOptions = req.body.order.products.map((product) => {
+        return {
+            updateOne: {
+                filter: { _id: product._id },       //get the product by id
+                update: {                           //define update fields ...
+                    $inc: {                         // includes ...
+                        quantity: -product.count,   //quantity (decrement by count)
+                        sold: +product.count        //sold (increment by count)
+                    } 
+                }
+            }
+        }
+    })
+
+    EcommerceProduct.bulkWrite(bulkOptions, {}, (err, products) => {
+        if (err) {
+            return res.status(400)
+                      .json({
+                          error: 'Could not update product.'
+                      })
+        }
+        next()
+    })
 }

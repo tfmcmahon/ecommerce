@@ -27,7 +27,7 @@
     --fs-h2: 1.5rem;
     --fs-h3: 1.25rem;
     --fs-body: 1rem;
-    --fs-small: .8em;
+    --fs-small: .6em;
 
     --bs: 0.25em 0.25em 0.75em rgba(0,0,0,.35), /*'bs' stands for box-shadow*/
           0.125em 0.125em 0.25em rgba(0,0,0,.25);
@@ -260,7 +260,7 @@ a:hover {
 }
 
 .payButtonWrapper {
-  height: 450px;
+  height:600px;
 }
 
 /*------------------------------- Header -------------------------------*/
@@ -581,6 +581,37 @@ a:hover {
 .dashboardInfo {
   font-family: var(--ff-primary);
   font-size: var(--fs-body);
+}
+
+.orderWrapper {
+  border: 1px solid var(--clr-gray2);
+  border-radius: 3px;
+  padding: 1em;
+  margin: .5em;
+  width: 500px;
+}
+
+.orderId {
+  background: var(--clr-gray2);
+  border-radius: 3px;
+  padding: .2em 1em;
+  text-align: center;
+}
+
+.orderList {
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding: .5em 2em;
+}
+
+.orderListItem {
+  line-height: 1.5em;
+  font-size: var(--fs-small);
+}
+
+.orderLength{
+  text-align: center;
 }
 
 /*------------------------------- Category & Product-------------------------------*/
@@ -1197,6 +1228,10 @@ select option:first-child{
   border-bottom-right-radius: 3px;
 }
 
+.dropInWrapperInner {
+  width: 300px;
+}
+
 .checkoutCard {
   display: flex;
   flex-direction: column;
@@ -1213,6 +1248,44 @@ select option:first-child{
   background: var(--clr-neighbor1);
   border-radius: 3px;
   padding: .5em 2em;
+}
+
+.addressWrapper,
+.braintree-dropin {
+  margin: 1em auto;
+  border: 1px solid var(--clr-gray2);
+  border-radius: 3px;
+  padding: 1em;
+  height: 290px;
+  width: 300px;
+  display: block;
+  text-align: center;
+}
+
+.braintree-dropin {
+  height: 550px;
+}
+
+.pageDescriptionAddress,
+.braintree-heading {
+  text-align: center;
+  margin: 0;
+  margin-bottom: .6em;
+  line-height: var(--fs-h3);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-reg);
+  text-transform: uppercase;
+  color: var(--clr-neighbor2);
+  font-family: var(--ff-primary);
+}
+
+.braintree-heading {
+  position: relative;
+  margin: -.5em auto;
+}
+
+.addressAllWrapper {
+  height: 480px;
 }
 
 /*------------------------------- Rules -------------------------------*/

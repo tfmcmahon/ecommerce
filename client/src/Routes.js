@@ -2,20 +2,27 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 //component import
-import Register from './components/user/RegisterComponent'
-import Login from './components/user/LoginComponent'
+//auth routes
+import PrivateRoute from './components/auth/PrivateRoute'
+import AdminRoute from './components/auth/AdminRoute'
+//layout routes
 import Landing from './components/layout/LandingComponent'
 import Nav from './components/layout/NavComponent'
 import Footer from './components/layout/FooterComponent'
+//user routes
+import Register from './components/user/RegisterComponent'
+import Login from './components/user/LoginComponent'
 import Dashboard from './components/user/DashboardComponent'
-import Shop from './components/shop/ShopComponent'
+//admin routes
 import AdminDashboard from './components/admin/AdminDashboardComponent'
 import AddCategory from './components/admin/AddCategoryComponent'
 import AddProduct from './components/admin/AddProductComponent'
+import Orders from './components/admin/OrdersComponent'
+//shop routes
+import Shop from './components/shop/ShopComponent'
 import ProductPage from './components/product/ProductPageComponent'
 import Cart from './components/cart/CartComponent'
-import PrivateRoute from './components/auth/PrivateRoute'
-import AdminRoute from './components/auth/AdminRoute'
+
 
 const Routes = () => {
     return (
@@ -33,6 +40,7 @@ const Routes = () => {
                     <AdminRoute exact path='/admin/dashboard' component={AdminDashboard} />
                     <AdminRoute exact path='/create/category' component={AddCategory} />
                     <AdminRoute exact path='/create/product' component={AddProduct} />
+                    <AdminRoute exact path='/admin/orders' component={Orders} />
                 </Switch>
                 <div className="whiteFill"></div>
             </div>

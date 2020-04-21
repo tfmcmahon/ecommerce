@@ -43,7 +43,7 @@ const orderSchema = new mongoose.Schema(
         status: {
             type: String,
             default: 'Not processed',
-            enum: ['Not processed', 'Processing', 'Shipped', 'Delivered'] // fixed string options
+            enum: ['Not processed', 'Processing', 'Shipped', 'Delivered', 'Cancelled'] // fixed string options
         },
         updated: Date,
         user: {

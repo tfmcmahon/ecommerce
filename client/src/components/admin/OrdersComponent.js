@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import Layout from '../layout/LayoutComponent'
-import { listOrders } from '../../actions/orderActions'
+import { listOrders, getOrderStatus, updateOrderStatus } from '../../actions/orderActions'
 import { isAuthenticated, getUser } from '../../actions/authActions'
 
 
 const Orders = () => {
     const [orders, setOrders] = useState([])
+    const [status, setStatus] = useState([])
 
     const userId = getUser() && getUser()._id
     const token = isAuthenticated()
@@ -19,6 +20,14 @@ const Orders = () => {
                     console.log(data.data.error)
                 } else {
                     setOrders(data.data)
+                }
+            })
+        getOrderStatus(userId, token)
+            .then(data => {
+                if (data.data.error) {
+                    console.log(data.data.error)
+                } else {
+                    setStatus(data.data)
                 }
             })
     }, [])
@@ -35,41 +44,85 @@ const Orders = () => {
         }
     }
 
+    const showInput = (key, value) => (
+        <li className='productOrderWrapperInner'>
+            <div className='productOrderKey'>{`${key}: `}</div>
+            <div className='productOrderValue'>{value}</div>
+        </li>
+    )
+
+    const handleChange = (event, orderId) => {
+        updateOrderStatus(orderId, userId, event.target.value, token) // event.target.value = status
+            .then(item => {
+                if (item.data.error) {
+                    console.log('Status update failed')
+                } else {
+                    listOrders(userId, token)
+                        .then(data => {
+                            if (data.data.error) {
+                                console.log(data.data.error)
+                            } else {
+                                setOrders(data.data)
+                            }
+                        })
+                }
+            })
+    }
+
+    const showStatus = order => (
+        <div className='searchInputWrapper'>
+            <div className='searchSelectWrapperAdmin'>
+                <h3 className='productCategoryHeaderAdmin'>Status: {order.status}</h3>
+                <select 
+                    className='searchSelectAdmin' 
+                    onChange={(event) => handleChange(event, order._id)} 
+                    name='category'
+                >
+                    <option className='searchDropdown'>Update Status</option>
+                    {status.map((stat, index) => (
+                        <option key={index} value={stat} className='searchDropdown'>
+                            {stat}
+                        </option>
+                    ))}
+                </select>
+            </div>
+        </div>
+    )
+
     return (
         <Layout
-        title='Product Orders'
-        description={`View and manage all orders`}
+            title='Product Orders'
+            description={`View and manage all orders`}
         >
             <div className='sectionWrapper'>
                 {showOrdersLength()}
-                {orders.map((order, index) => {
+                {orders.map((order, oIndex) => {
                     return (
-                        <div className='orderWrapper' key={index}>
+                        <div className='productOrderWrapper' key={oIndex}>
                             <p className='orderId'>Order ID: {order._id}</p>
                             <ul className='orderList'>
-                                <li className='orderListItem'>
-                                    <b>Order Status:</b> {order.status}
-                                </li>
-                                <li className='orderListItem'>
-                                    <b>TansactionId:</b> {order.transactionId}
-                                </li>
-                                <li className='orderListItem'>
-                                    <b>Ordered by:</b> {order.user.name}
-                                </li>
-                                <li className='orderListItem'>
-                                    <b>Ordered on:</b> {moment(order.createdAt).fromNow()}
-                                </li>
-                                <li className='orderListItem'><b>Address Line 1:</b> {order.address.address1}</li>
-                                {order.address.address2 
-                                    ? <li className='orderListItem'><b>AddressLine 2:</b> {order.address.address2}</li>
-                                    : null
-                                }
-                                <li className='orderListItem'><b>Address City:</b> {order.address.city}</li>
-                                <li className='orderListItem'><b>Address State:</b> {order.address.state}</li>
-                                <li className='orderListItem'><b>Address Zip Code:</b> {order.address.zip}</li>
+                                {showStatus(order)}
+                                {showInput('TransactionId', order.transactionId)}
+                                {showInput('Ordered by', order.user.name)}
+                                {showInput('Ordered on', moment(order.createdAt).fromNow())}
+                                {showInput('Address Line 1', order.address.address1)}
+                                {showInput('AddressLine 2', order.address.address2)}
+                                {showInput('Address City', order.address.city)}
+                                {showInput('Address State', order.address.state)}
+                                {showInput('Address Zip Code', order.address.zip)}
                             </ul>
                             <div className='horizontalRule'></div>
                             <p className='orderLength'>Total products in order: {order.products.length}</p>
+                            {order.products.map((product, pIndex) => (
+                                <div className='orderWrapper' key={pIndex}>
+                                    <ul className='orderList'>
+                                        {showInput('Product name', product.name)}
+                                        {showInput('Product price', product.price)}
+                                        {showInput('Product count', product.count)}
+                                        {showInput('Product Id', product._id)}
+                                    </ul>
+                                </div>
+                            ))}
                         </div>
                     )
                 })}

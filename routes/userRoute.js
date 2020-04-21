@@ -31,7 +31,7 @@ router.get('/user/:userId', requireLogin, isAuth, readUser)
 // @access  Private
 router.put('/user/:userId', requireLogin, isAuth, updateUser)
 
-// @route   none
+// @route   contains :userId
 // @desc    check params for a user id
 // @access  NA
 router.param('userId', userById)

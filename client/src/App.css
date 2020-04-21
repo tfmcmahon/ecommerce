@@ -10,7 +10,7 @@
     --ff-secondary: 'Source Code Pro', monospace; /* these are from Google Fonts */
 
     --fw-reg: 300; /*'fw' stands for font-weight*/
-    --fw-bold: 900;
+    --fw-bold: 700;
 
     --clr-light: #fff;
     --clr-gray: #eee;
@@ -584,11 +584,9 @@ a:hover {
 }
 
 .orderWrapper {
-  border: 1px solid var(--clr-gray2);
+  border: 1px solid var(--clr-neighbor2);
   border-radius: 3px;
-  padding: 1em;
-  margin: .5em;
-  width: 500px;
+
 }
 
 .orderId {
@@ -596,6 +594,11 @@ a:hover {
   border-radius: 3px;
   padding: .2em 1em;
   text-align: center;
+  margin: 0;
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  background: var(--clr-neighbor2);
+  color: var(--clr-light)
 }
 
 .orderList {
@@ -612,6 +615,63 @@ a:hover {
 
 .orderLength{
   text-align: center;
+  
+}
+
+.productOrderWrapper {
+  background: var(--clr-gray);
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  border-radius: 3px;
+  font-size: 15px;
+  width: 66vw;
+  margin: .5em;
+}
+
+.productOrderWrapperInner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.productOrderKey {
+  font-weight: var(--fw-bold);
+}
+
+.orderStatusWrapper {
+  display: flex;
+}
+
+.searchSelectWrapperAdmin {
+  width: 100%;
+}
+
+.searchSelectAdmin {
+  border-radius: 2px;
+  border: 0;
+  height: 2.4rem;
+  padding: .5em 0;
+  font-family: var(--ff-primary);
+  outline: none;
+  font-weight: var(--fw-bold);
+  cursor:pointer;
+  display:inline-block;
+  position:relative;
+  text-transform: uppercase;
+  width: 100%;
+}
+
+.productCategoryHeaderAdmin {
+  text-transform: uppercase;
+  text-align: center;
+  padding: .5em;
+  margin: 0;
+  margin-bottom: .5em;
+  font-size: var(--fs-h3);
+  background: var(--clr-gray2);
+  border-radius: 3px;
+  width: 100%;
+  font-size: var(--fs-body);
 }
 
 /*------------------------------- Category & Product-------------------------------*/

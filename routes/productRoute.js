@@ -71,7 +71,7 @@ router.get('/products/user/search', listProductsByUserSearch)
 // @access  Public
 router.get('/product/photo/:productId', productPhoto)
 
-// @route   none
+// @route   contains :orderId or :productId
 // @desc    check params for a user id or product id
 // @access  NA
 router.param('userId', userById)

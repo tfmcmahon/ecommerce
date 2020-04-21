@@ -16,7 +16,7 @@ router.get('/braintree/getToken/:userId', requireLogin, isAuth, generateToken)
 // @access  Private
 router.post('/braintree/payment/:userId', requireLogin, isAuth, processPayment)
 
-// @route   none
+// @route   contains :userId
 // @desc    check params for a user id
 // @access  NA
 router.param('userId', userById)

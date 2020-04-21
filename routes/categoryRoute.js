@@ -41,7 +41,7 @@ router.delete('/category/:categoryId/:userId', requireLogin, isAuth, isAdmin, de
 // @access  Public
 router.get('/categories/all', listAllCategories)
 
-// @route   none
+// @route   contains :userId or :categoryId
 // @desc    check params for a user id or category id
 // @access  NA
 router.param('userId', userById)

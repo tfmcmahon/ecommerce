@@ -601,11 +601,21 @@ a:hover {
   color: var(--clr-light)
 }
 
-.orderList {
+.orderList,
+.orderListPH {
   display: flex;
   flex-direction: column;
   list-style-type: none;
   padding: .5em 2em;
+}
+
+.orderListPH {
+  width: 100%;
+  padding: 0;
+  background: var(--clr-gray);
+  border: 1px solid var(--clr-neighbor2);
+  border-radius: 3px;
+  padding: 1em;
 }
 
 .orderListItem {

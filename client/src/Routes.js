@@ -13,6 +13,7 @@ import Footer from './components/layout/FooterComponent'
 import Register from './components/user/RegisterComponent'
 import Login from './components/user/LoginComponent'
 import Dashboard from './components/user/DashboardComponent'
+import Profile from './components/user/ProfileComponent'
 //admin routes
 import AdminDashboard from './components/admin/AdminDashboardComponent'
 import AddCategory from './components/admin/AddCategoryComponent'
@@ -37,6 +38,7 @@ const Routes = () => {
                     <Route exact path='/cart/' component={Cart} />
                     <Route exact path='/product/:productId' component={ProductPage} />
                     <PrivateRoute exact path='/user/dashboard' component={Dashboard} />
+                    <PrivateRoute exact path='/profile/:userId' component={Profile} />
                     <AdminRoute exact path='/admin/dashboard' component={AdminDashboard} />
                     <AdminRoute exact path='/create/category' component={AddCategory} />
                     <AdminRoute exact path='/create/product' component={AddProduct} />

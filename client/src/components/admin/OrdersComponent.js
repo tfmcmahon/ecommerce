@@ -117,7 +117,7 @@ const Orders = () => {
                                 <div className='orderWrapper' key={pIndex}>
                                     <ul className='orderList'>
                                         {showInput('Product name', product.name)}
-                                        {showInput('Product price', product.price)}
+                                        {showInput('Product price', `$${product.price}`)}
                                         {showInput('Product count', product.count)}
                                         {showInput('Product Id', product._id)}
                                     </ul>

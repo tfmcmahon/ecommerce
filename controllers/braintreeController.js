@@ -1,5 +1,4 @@
 require('dotenv').config()
-const EcommerceUser = require('../models/userModel')
 const braintree = require('braintree')
 
 

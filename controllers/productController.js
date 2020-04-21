@@ -2,7 +2,7 @@ const formidable = require('formidable')
 const lodash = require('lodash')
 const fs = require('fs')
 const EcommerceProduct = require('../models/productModel')
-const { errorHandler } = require('../helpers/dbErrorHandler') //remove if above works
+const { errorHandler } = require('../helpers/dbErrorHandler')
 
 //whenever there is a productId in paramaters, attach it to the request
 exports.productById = (req, res, next, id) => {

@@ -1,4 +1,6 @@
 const EcommerceUser = require('../models/userModel')
+const { EcommerceOrder } = require('../models/orderModel')
+const { errorHandler } = require('../helpers/dbErrorHandler')
 
 //userId param checker method
 exports.userById = (req, res, next, id) => {
@@ -23,7 +25,7 @@ exports.readUser = (req, res) => {
 }
 
 exports.updateUser = (req, res) => {
-        req.body.role = 0;          // role will always be 0
+    req.body.role = 0;              // role will always be 0
     EcommerceUser.findOneAndUpdate(
         { _id: req.profile._id },   //search by the id which our middleware attached to the request
         { $set: req.body },         //update everything from the request body
@@ -64,10 +66,27 @@ exports.addOrderToUserHistory = (req, res, next) => {
             if (err) {
                 return res.status(400)
                           .json({
-                              error: 'Could not update user purchase history'
+                              error: errorHandler(err)
                           })
             }
             next()
         }
     )
+}
+
+exports.getOrderHistory = (req, res) => {
+    user = req.profile
+    EcommerceOrder.find({ user: user._id })
+        .populate('user', '_id name')
+        .sort('-created')
+        .exec((err, orders) => {
+            if (err) {
+                return res.status(400)
+                          .json({
+                              error: errorHandler(err)
+                          })
+            }
+            res.json(orders)
+        }
+        )
 }

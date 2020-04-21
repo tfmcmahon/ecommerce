@@ -9,7 +9,8 @@ const {
 const { 
     userById,
     readUser,
-    updateUser
+    updateUser,
+    getOrderHistory
  } = require('../controllers/userController')
 
 // @route   GET api/user/secret/:userId
@@ -25,6 +26,11 @@ router.get('/user/secret/:userId', requireLogin, isAuth, isAdmin, (req, res) => 
 // @desc    Get user profile
 // @access  Private
 router.get('/user/:userId', requireLogin, isAuth, readUser)
+
+// @route   GET api/user/orders/:userId
+// @desc    Get orders by user
+// @access  Private
+router.get('/user/orders/:userId', requireLogin, isAuth, getOrderHistory)
 
 // @route   PUT api/user/:userId
 // @desc    Update user profile

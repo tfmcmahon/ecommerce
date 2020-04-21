@@ -27,7 +27,7 @@ const Checkout = ({
         state: '',
         zip: ''
     })
-    const userId = getUser() && getUser()._id
+    const userId = getUser()._id
     const token = isAuthenticated()
 
     useEffect(() => {

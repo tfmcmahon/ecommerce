@@ -5,15 +5,13 @@ import ProductCard from '../product/ProductCardComponent'
 
 const SearchBar = () => {
     const [values, setValues] = useState({
-        categories: [],
         category: '',
         search: '',
         results: [],
-        searched: false                 //this is so we can display 'product not found' if necessary
+        searched: false                              //this is so we can display 'product not found' if necessary
     })
-
+    const [categories, setCatergoies] = useState([]) // seaparated to avoid useEffect errors
     const { 
-        categories,
         category,
         search,
         results,
@@ -26,10 +24,7 @@ const SearchBar = () => {
             if (data.data.error) {
                 console.log(data.data.error)
             } else {
-                setValues({
-                    ...values,
-                    categories: data.data.data
-                })
+                setCatergoies(data.data.data)
             }
         }) 
     }, [])

@@ -16,7 +16,6 @@ const Checkout = ({
         success: false,
         addressSuccess: false,
         clientToken: null,
-        error: '',
         addressError: '',
         instance: {},               //for braintree web drop in
     })
@@ -27,6 +26,7 @@ const Checkout = ({
         state: '',
         zip: ''
     })
+    const [error, setError] = useState('')
     const userId = getUser()._id
     const token = isAuthenticated()
 
@@ -34,17 +34,14 @@ const Checkout = ({
         getBraintreeClientToken(userId, token)
             .then(data => {
                 if (data.data.error) {
-                    setValues({
-                        ...values,
-                        error: data.error
-                    })
+                    setError(data.error)
                 } else {
                     setValues({
                         clientToken: data.data.clientToken
                     })
                 }
             })
-    }, [])
+    }, [userId, token])
 
     const getCheckoutTotal = () => {
         return (
@@ -90,10 +87,7 @@ const Checkout = ({
     const sendPayment = () => {
         //Validate address
         if (!values.addressSuccess) {
-            setValues({
-                ...values,
-                error: 'Please fill out the shipping fields'
-            })
+            setError('Please fill out the shipping fields')
         } else {
             setValues({
                 ...values,
@@ -102,7 +96,7 @@ const Checkout = ({
             //Send nonce to server
             //nonce = values.instance.requestPaymentMethod()
             let nonce
-            let getNonce = values.instance.requestPaymentMethod()
+            values.instance.requestPaymentMethod()
                 .then(data => {
                     nonce = data.nonce
                     //once we have the nonce (card type, card number, etc)
@@ -163,9 +157,9 @@ const Checkout = ({
             <div className='errorWrapper'>
                 <p 
                     className='errorText'
-                    style={{ display: values.error ? '' : 'none' }}
+                    style={{ display: error ? '' : 'none' }}
                 >
-                    {values.error}
+                    {error}
                 </p>
                 <p 
                     className='successText'

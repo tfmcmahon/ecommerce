@@ -247,10 +247,16 @@ a:hover {
   background: var(--clr-accent);
 }
 
-.buttonWrapper {
+.buttonWrapper,
+.buttonWrapperUpdate {
   display: flex;
   align-self: center;
   height: 4em;
+}
+
+.buttonWrapperUpdate {
+  height: auto;
+  margin-top: 2em;
 }
 
 .homeButton:hover,

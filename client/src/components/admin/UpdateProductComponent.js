@@ -14,24 +14,21 @@ const UpdateProduct = (props) => {
         price: '',
         category: '',
         shipping: '',
-        quantity: '',
-        photo: '',
-        loading: false,
-        createdProduct: ''
+        quantity: ''
     })
     const [error, setError] = useState('')
     const [formData, setFormData] = useState('')
     const [categories, setCategories] = useState([])
     const [photoMessage, setPhotoMessage] = useState('Upload Photo')
+    const [loading, setLoading] = useState(false)
+    const [createdProduct, setCreatedProduct] = useState('')
 
     //destructure values state for cleaner variables:
     const {
         name,
         description,
         price,
-        quantity,
-        loading,
-        createdProduct
+        quantity
     } = values
 
     //destructure user and token from local storage
@@ -41,14 +38,13 @@ const UpdateProduct = (props) => {
 
     //load categories and set form data
     useEffect(() => {
+
         getSingleProduct(productId)
             .then(data => {
                 if (data.data.error) {
                     setError(data.data.error)
                 } else {
-                    console.log(data.data)
                     setValues({
-                        ...values,
                         name: data.data.name,
                         description: data.data.description,
                         price: data.data.price,
@@ -69,7 +65,7 @@ const UpdateProduct = (props) => {
                     setCategories(data.data.data)
                 }
             })
-    }, [])
+    }, [productId])
 
     const handleChange = () => event => {
         let { id, value } = event.target
@@ -93,38 +89,27 @@ const UpdateProduct = (props) => {
             setPhotoMessage(message)
         }
         formData.set('photo', files[0]) // field 'photo' required for the backend to recognize it
-        setValues({
-            ...values,
-            photo: files[0]
-        })
     }
 
     const handleSubmit = event => {
         event.preventDefault()
-        setValues({
-            ...values,
-            error: '',
-            loading: true
-        })
+        setError('')
+        setLoading(true)
         updateProduct(productId, userId, token, formData)
             .then(data => {
                 if (data.data.error) {          //if the backend throws an error, put it into the state
                     setError(data.data.error)
-                    setValues({
-                        ...values,
-                        loading: false
-                    })
+                    setLoading(false)
                 } else {                        //if no error, set success to true
                     setValues({
                         ...values,
                         name: '',
                         description: '',
-                        photo: '',
                         price: '',
                         quantity: '',
-                        loading: false,
-                        createdProduct: data.data.data.name
                     })
+                    setLoading(false)
+                    setCreatedProduct(data.data.data.name)
                 }
             })
     }
@@ -209,9 +194,9 @@ const UpdateProduct = (props) => {
                 >
                     Update
                 </button>
-                <Link to='/admin/dashboard' className=''>
+                <Link to='/admin/products' className=''>
                     <button className='navButton'>
-                        Dashboard
+                        Manage Products
                     </button>
                 </Link>
             </div>

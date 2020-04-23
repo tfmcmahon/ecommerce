@@ -17,31 +17,39 @@ const Shop = () => {
         }
     })
     const [categories, setCategories] = useState([])
-    const [limit, setLimit] = useState(6)
     const [skip, setSkip] = useState(0)
     const [size, setSize] = useState(0)
     const [filteredResults, setFilteredResults] = useState([])
-    const [error, setError] = useState('')
+    const limit = 6 //results per page
 
     //load categories and set form data
     useEffect(() => {
         getCategories()
             .then(data => {
                 if (data.data.error) {          //if the backend throws an error, put it into the state
-                    console.log(error)
-                    setError(data.data.error)
+                    console.log(data.data.error)
                 } else {                        //if no error, set categories
                     setCategories(data.data.data)
                 }
             })
-        getFilteredResults(skip, limit, userFilters.filters)
+
+        getFilteredProducts()
+            .then(data => {
+                if (data.data.error) {
+                    console.log(data.data.error)
+                } else {
+                    setFilteredResults(data.data.products)
+                    setSize(data.data.size)
+                    setSkip(0)
+                }
+            })                  
     }, [])
     
     const getFilteredResults = sentFilters => {
         getFilteredProducts(skip, limit, sentFilters)
             .then(data => {
                 if (data.data.error) {
-                    setError(data.data.error)
+                    console.log(data.data.error)
                 } else {
                     setFilteredResults(data.data.products)
                     setSize(data.data.size)
@@ -55,7 +63,7 @@ const Shop = () => {
         getFilteredProducts(skipTo, limit, userFilters.filters)
             .then(data => {
                 if (data.data.error) {
-                    setError(data.data.error)
+                    console.log(data.data.error)
                 } else {
                     setFilteredResults([...filteredResults, ...data.data.products])
                     setSize(data.data.size)
@@ -75,7 +83,7 @@ const Shop = () => {
     }
 
     const handleFilters = (filters, filterBy) => {
-        const newFilters = {...userFilters}         //store the user filters state onto a proxy
+        const newFilters = { ...userFilters }       //store the user filters state onto a proxy
         newFilters.filters[filterBy] = filters      //update the proxy filters by category
 
         if (filterBy === 'price') {

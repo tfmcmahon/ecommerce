@@ -112,7 +112,7 @@ export const getAllProducts = sortBy => {
             })
 }
 
-export const getFilteredProducts = (skip, limit, filters = {}) => {
+export const getFilteredProducts = (skip = 0, limit = 6, filters = {}) => { //det defaults for useEffect
     const data = {
         limit,
         skip,

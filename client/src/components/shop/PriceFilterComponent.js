@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 
 const PriceFilter = ({ prices, handleFilters }) => {
-    const [value, setValue] = useState(0)
 
-    const handleChange = (event) => {
+    const handleChange = event => {
         handleFilters(event.target.value)
-        setValue(event.target.value)
     }
 
     return (

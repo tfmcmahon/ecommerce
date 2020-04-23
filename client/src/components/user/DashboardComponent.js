@@ -20,7 +20,7 @@ const Dashboard = () => {
                     setHistory(data.data)
                 }
             })
-    }, [])
+    }, [_id, token])
 
     const userLinks = () => {
         return (
@@ -79,21 +79,26 @@ const Dashboard = () => {
             <div className='dashboardHistoryWrapper'>
                 <h3 className="dashboardCardTitle">Purchase History</h3>
                 <ul className='dashboardList'>
-                        {history.map((hist, hIndex) =>{
-                            return (
-                                <li className='dashboardListItem'>
-                                    {hist.products.map((product, pIndex) => {
-                                        return(
-                                            <ul key={pIndex} className='orderListPH'>
-                                                {showInput('Product name', product.name)}
-                                                {showInput('Product price', `$${product.price}`)}
-                                                {showInput('Purchase date', moment(product.createdAt).fromNow())}
-                                             </ul>
-                                        )
-                                    })}
-                                </li>
-                            )
-                        })}
+                    { history.length > 0
+                    ? history.map((hist, hIndex) =>{
+                        return (
+                            <li className='dashboardListItem'>
+                                {hist.products.map((product, pIndex) => {
+                                    return(
+                                        <ul key={pIndex} className='orderListPH'>
+                                            {showInput('Product name', product.name)}
+                                            {showInput('Product price', `$${product.price}`)}
+                                            {showInput('Purchase date', moment(product.createdAt).fromNow())}
+                                        </ul>
+                                    )
+                                })}
+                            </li>
+                        )
+                    })
+                    : <li className='dashboardListItem'>
+                        No purchase history yet
+                    </li>
+                    }
                 </ul>
             </div>
         )
@@ -112,7 +117,6 @@ const Dashboard = () => {
                 {userInfo()}
                 {userLinks()}
                 {userHistory(history)}
-                {console.log(history)}
             </div>
 
         </Layout>

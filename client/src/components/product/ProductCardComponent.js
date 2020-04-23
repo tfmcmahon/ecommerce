@@ -94,14 +94,13 @@ const ProductCard = ({
                 <div className='horizontalRuleProduct'></div>
                 <div className='productCardInfo'>
                     <p className='productText'>
-                        {product.description.substring(0, 100)}
+                        {product.description}
                     </p>
                 </div>
-                <div className='horizontalRuleProduct'></div>
-                <div className='productCardPrice'>
-                    ${product.price}
-                </div>
                 <div className='productButtonRow'>
+                    <div className='productCardPrice'>
+                        ${product.price}
+                    </div>
                     <Link to={`/product/${product._id}`}>
                         <button
                             className="productButton"

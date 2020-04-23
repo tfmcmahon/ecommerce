@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import moment from 'moment'
 import Layout from '../layout/LayoutComponent'
 import { listOrders, getOrderStatus, updateOrderStatus } from '../../actions/orderActions'
@@ -30,7 +29,7 @@ const Orders = () => {
                     setStatus(data.data)
                 }
             })
-    }, [])
+    }, [userId, token])
 
     const showOrdersLength = () => {
         if (orders.length > 0 ) {

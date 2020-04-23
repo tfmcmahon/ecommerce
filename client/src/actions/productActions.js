@@ -12,6 +12,14 @@ let options = {
     data: ''
 }
 
+/* 
+ *perform CRUD on products 
+ *create a product          C
+ *get a single product      R
+ *update a single product   U
+ *delete a single product   D
+ */
+
 export const createProduct = (userId, token, product) => {
     options.url = `${API}/product/create/${userId}`
     options.method = 'POST'
@@ -30,8 +38,69 @@ export const createProduct = (userId, token, product) => {
             })
 }
 
+export const getSingleProduct = productId => {
+    options.url = `${API}/product/${productId}`
+    options.method = 'GET'
+    options.headers = ''
+    return axios(options)
+            .then(response => {
+                return response
+            })
+            .catch(err => {
+                return err.response
+            })
+}
+
+export const updateProduct = (productId, userId, token, product) => {
+    options.url = `${API}/product/${productId}/${userId}`
+    options.method = 'PUT'
+    options.headers = {
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': `multipart/form-data; boundary=${product._boundary}`
+    }
+    options.data = product
+    return axios(options)
+            .then(response => {
+                return response
+            })
+            .catch(err => {
+                return err.response
+            })
+}
+
+export const deleteProduct = (productId, userId, token) => {
+    options.url = `${API}/product/${productId}/${userId}`
+    options.method = 'DELETE'
+    options.headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    }
+    return axios(options)
+            .then(response => {
+                return response
+            })
+            .catch(err => {
+                return err.response
+            })
+}
+
 export const getProducts = sortBy => {
     options.url = `${API}/products?sortBy=${sortBy}&order=desc&limit=6`
+    options.method = 'GET'
+    options.headers = ''
+    return axios(options)
+            .then(response => {
+                return response
+            })
+            .catch(err => {
+                return err.response
+            })
+}
+
+export const getAllProducts = sortBy => {
+    options.url = `${API}/products?sortBy=${sortBy}&order=desc&limit=undefined`
     options.method = 'GET'
     options.headers = ''
     return axios(options)
@@ -79,19 +148,6 @@ export const getSearchedProducts = searchData => {
             })
 }
 
-export const getSingleProduct = productId => {
-    options.url = `${API}/product/${productId}`
-    options.method = 'GET'
-    options.headers = ''
-    return axios(options)
-            .then(response => {
-                return response
-            })
-            .catch(err => {
-                return err.response
-            })
-}
-
 export const getRelatedProducts = productId => {
     options.url = `${API}/products/related/${productId}`
     options.method = 'GET'
@@ -104,3 +160,4 @@ export const getRelatedProducts = productId => {
                 return err.response
             })
 }
+

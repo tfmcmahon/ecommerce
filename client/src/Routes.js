@@ -19,6 +19,8 @@ import AdminDashboard from './components/admin/AdminDashboardComponent'
 import AddCategory from './components/admin/AddCategoryComponent'
 import AddProduct from './components/admin/AddProductComponent'
 import Orders from './components/admin/OrdersComponent'
+import ManageProducts from './components/admin/ManageProductsComponent'
+import UpdateProduct from './components/admin/UpdateProductComponent'
 //shop routes
 import Shop from './components/shop/ShopComponent'
 import ProductPage from './components/product/ProductPageComponent'
@@ -42,7 +44,10 @@ const Routes = () => {
                     <AdminRoute exact path='/admin/dashboard' component={AdminDashboard} />
                     <AdminRoute exact path='/create/category' component={AddCategory} />
                     <AdminRoute exact path='/create/product' component={AddProduct} />
+                    <AdminRoute exact path='/admin/products' component={ManageProducts} />
                     <AdminRoute exact path='/admin/orders' component={Orders} />
+                    <AdminRoute exact path='/admin/product/update/:productId' component={UpdateProduct} />
+
                 </Switch>
                 <div className="whiteFill"></div>
             </div>

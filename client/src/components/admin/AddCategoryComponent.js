@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../layout/LayoutComponent'
-import Transition from '../../images/transition1.svg'
 import { getUser, isAuthenticated } from '../../actions/authActions'
 import { createCategory } from '../../actions/categoryActions'
 
@@ -86,18 +85,16 @@ const AddCategory = () => {
 
     return (
         <Layout 
-        title='Create Category Page'
+        title='Create Categories'
         description='Create a new product category'
         >
             <div className="login">
                 <div className="loginWrapper">
                     <div className="categoryForm">
-                        <h3 className="loginTitle">New Category</h3>
                         {newCategoryForm()}
                     </div>
                 </div>
                 {showServerMessage()}
-                <img src={Transition} alt="transition graphic" className="landingImage"></img>
             </div>
         </Layout>
     )

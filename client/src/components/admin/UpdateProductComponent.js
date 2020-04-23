@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../layout/LayoutComponent'
 import { getUser, isAuthenticated } from '../../actions/authActions'
-import { createProduct } from '../../actions/productActions'
+import { getSingleProduct, updateProduct } from '../../actions/productActions'
 import { getCategories } from '../../actions/categoryActions'
 
 
-const AddProduct = () => {
+const UpdateProduct = (props) => {
     //set up values (product fields) state per the product schema
     const [values, setValues] = useState({
         name: '',
@@ -36,10 +36,30 @@ const AddProduct = () => {
 
     //destructure user and token from local storage
     let token = isAuthenticated()
-    let { _id } = getUser()
+    let userId = getUser()._id
+    let productId = props.match.params.productId
 
     //load categories and set form data
     useEffect(() => {
+        getSingleProduct(productId)
+            .then(data => {
+                if (data.data.error) {
+                    setError(data.data.error)
+                } else {
+                    console.log(data.data)
+                    setValues({
+                        ...values,
+                        name: data.data.name,
+                        description: data.data.description,
+                        price: data.data.price,
+                        category: data.data.category._id,
+                        shipping: data.data.shipping,
+                        quantity: data.data.quantity,
+                    })
+                    setFormData(new FormData())
+                }
+            })
+
         getCategories()
             .then(data => {
                 if (data.data.error) {          //if the backend throws an error, put it into the state
@@ -56,7 +76,6 @@ const AddProduct = () => {
         formData.set(id, value)
         setValues({
             ...values,
-            error: '',
             [id]: value
         })
     }
@@ -87,7 +106,7 @@ const AddProduct = () => {
             error: '',
             loading: true
         })
-        createProduct(_id, token, formData)
+        updateProduct(productId, userId, token, formData)
             .then(data => {
                 if (data.data.error) {          //if the backend throws an error, put it into the state
                     setError(data.data.error)
@@ -188,7 +207,7 @@ const AddProduct = () => {
                     type="submit" 
                     className="submitLoginButton"
                 >
-                    Create
+                    Update
                 </button>
                 <Link to='/admin/dashboard' className=''>
                     <button className='navButton'>
@@ -212,7 +231,7 @@ const AddProduct = () => {
                 className="successText"
                 style={{ display: createdProduct ? '' : 'none' }}
             >
-                {createdProduct} was created successfully! 
+                {createdProduct} was updated successfully! 
             </p>
         </div>
     )
@@ -226,8 +245,8 @@ const AddProduct = () => {
 
     return (
         <Layout 
-        title='Create Product Form'
-        description='Add a new product'
+        title='Update Product'
+        description='Update an existing product'
         >
             <div className="login">
                 <div className="loginWrapper">
@@ -242,4 +261,4 @@ const AddProduct = () => {
     )
 }
 
-export default AddProduct
+export default UpdateProduct

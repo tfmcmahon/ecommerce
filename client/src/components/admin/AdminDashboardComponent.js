@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Layout from '../layout/LayoutComponent'
-import Transition from '../../images/transition1.svg'
 import { getUser } from '../../actions/authActions'
 
 const AdminDashboard = () => {
@@ -22,6 +21,12 @@ const AdminDashboard = () => {
                     <li className='dashboardListLink'>
                         <Link to='/create/product'>
                             <span className='dashboardCategory'>Create Product</span>
+                        </Link>
+                    </li>
+                    <div className="horizontalRule"></div>
+                    <li className='dashboardListLink'>
+                        <Link to='/admin/products'>
+                            <span className='dashboardCategory'>Manage Products</span>
                         </Link>
                     </li>
                     <div className="horizontalRule"></div>

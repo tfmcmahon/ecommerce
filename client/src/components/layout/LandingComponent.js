@@ -8,35 +8,26 @@ const Landing = () => {
     //state setup
     const [productsBySold, setProductsBySold] = useState([])
     const [productsByArrival, setProductsByArrival] = useState([])
-    const [error, setError] = useState('')
 
-    //product sort methods -- used when component mounts
-    const getProductsBySold = () => {
-        getProducts('sold')
-        .then(data => {
-            if (data.data.error) {          //if the backend throws an error, put it into the state
-                setError(data.data.error)
-            } else {                        //if no error, set set the product state
-                setProductsBySold(data.data)
-            }
-        })
-    }
 
-    const getProductsByArrival = () => {
+    useEffect(() => {
+        //product sort methods -- call on mount
         getProducts('createdAt')
         .then(data => {
-            if (data.data.error) {          //if the backend throws an error, put it into the state
-                console.log(error)
-                setError(data.data.error)
+            if (data.data.error) {          
+                console.log(data.data.error)
             } else {                        //if no error, set the product state
                 setProductsByArrival(data.data)
             }
         })
-    }
-
-    useEffect(() => {
-        getProductsByArrival()
-        getProductsBySold()
+        getProducts('sold')
+        .then(data => {
+            if (data.data.error) {          
+                console.log(data.data.error)
+            } else {                        //if no error, set set the product state
+                setProductsBySold(data.data)
+            }
+        })
     }, [])
 
     return (

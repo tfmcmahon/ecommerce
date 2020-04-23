@@ -175,7 +175,8 @@ a:hover {
 .productButton,
 .searchButton,
 .cartButton,
-.payButton {
+.payButton,
+.productPageButton {
   display: inline-block;
   padding: .5em 1em;
   background: var(--clr-neighbor2);
@@ -201,7 +202,8 @@ a:hover {
   .submitLoginButton,
   .productButton,
   .searchButton,
-  .payButton {
+  .payButton,
+  .productPageButton {
     font-size: .6rem;
     margin: .5em;
     height: 40px;
@@ -213,10 +215,16 @@ a:hover {
   align-self: center;
 }
 
-.productButton {
+.productButton,
+.productPageButton {
   background: var(--clr-neighbor1);
   color: var(--clr-dark);
-  margin-bottom: 0em;
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.productPageButton {
+  margin: 1em;
 }
 
 .navButton {
@@ -249,6 +257,7 @@ a:hover {
 .navButton:hover,
 .submitLoginButton:hover,
 .productButton:hover,
+.productPageButton:hover,
 .searchButton:hover,
 .cartButton:hover,
 .payButton:hover {
@@ -601,6 +610,19 @@ a:hover {
   color: var(--clr-light)
 }
 
+.productsLength {
+  background: var(--clr-gray2);
+  border-radius: 3px;
+  padding: .2em 1em;
+  width: 300px;
+  text-align: center;
+  margin: auto;
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  background: var(--clr-neighbor1);
+  color: var(--clr-dark)
+}
+
 .orderList,
 .orderListPH {
   display: flex;
@@ -643,6 +665,20 @@ a:hover {
   display: flex;
   justify-content: space-between;
 }
+
+.productOrderWrapperInner2 {
+  display: flex;
+}
+
+.productOrderKeyItem {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.productOrderKeyItem:first-child > span { margin-right: auto; }
+
+.productOrderKeyItem:last-child  > span { margin-left: auto;  }
 
 .productOrderKey {
   font-weight: var(--fw-bold);
@@ -767,11 +803,6 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-
-}
-
 select {
   text-transform: capitalize;
 }
@@ -851,8 +882,7 @@ select option:first-child{
   border-color: var(--clr-neighbor3);
   border-radius: 3px;
   background: var(--clr-light);
-  width: 300px;
-  height: 514px;
+  width: 250px;
 }
 
 .productCardHeader {
@@ -860,10 +890,16 @@ select option:first-child{
   background: var(--clr-neighbor2);
   color: var(--clr-light);
   margin: 0px;
-  padding: .5em;
+  padding: 11px 8px;
   border-bottom: 2px solid var(--clr-dark);
   height: 50px;
-  width: 100%
+  width: 100%;
+  letter-spacing: -1px;
+  text-overflow: ellipsis;
+
+  /* Needed to make it work */
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .productCardUnderHeader {
@@ -874,22 +910,48 @@ select option:first-child{
   text-align: center;
   justify-content: space-between;
   padding: 1em;
-  width: 300px;
-  height: 464px;
+  width: 250px;
+  height: 600px;
 }
 
-.productCardInfo {
+.productCardInfo,
+.productPageInfo {
   font-size: var(--fs-small);
-  width: 250px;
+  width: 210px;
+  line-height: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.productPageInfo {
+  width: 324px;
+}
+
+.productText{
+  margin: 0;
+  text-align: left;
 }
 
 .productCardPrice {
-  font-size: var(--fs-small);
+  background: var(--clr-gray2);
+  font-size: var(--fs-body);
   font-weight: var(--fw-bold);
+  margin: .7em;
+  padding: .33em 1em;
+  border-radius: 3px;
+  text-align: center;
+}
+
+.productButtonRow{
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .productImageWrapper {
-  height: 200px;
   align-content: center;
 }
 
@@ -897,13 +959,21 @@ select option:first-child{
   display: block;
   margin-left: auto;
   margin-right: auto;
-  height: 200px;
+  border: 1px solid var(--clr-accent);
+  border-bottom-width: 2px;
+  border-radius: 2px;
+}
+
+.productCardPrice + .productButtonRow {
+  margin-top: -.7em;
 }
 
 /*------------------------------- Product Page -------------------------------*/
 
 .productPageImageWrapper {
-  margin: 1em;
+  border: 1px solid var(--clr-accent);
+  border-bottom-width: 2px;
+  border-radius: 3px;
 }
 
 .productPageCard{
@@ -914,7 +984,7 @@ select option:first-child{
   margin: 3em auto;
   border-radius: 4px;
   background: var(--clr-light);
-  width: 50vw;
+  width: 378px;
   border: 1px solid var(--clr-dark);
   border-bottom-width: 2px;
 }
@@ -922,12 +992,12 @@ select option:first-child{
 .productPageUnderHeader {
   display: flex;
   flex-direction: column;
-  grid-template-rows: 50px;
   align-items: center;
   text-align: center;
   justify-content: space-between;
   padding: 1em;
   width: 100%;
+  height: 800px;
 }
 
 .productPageHeader {
@@ -942,6 +1012,11 @@ select option:first-child{
   border-radius: 3px;
   border: 0px solid var(--clr-dark);
   border-bottom-width: 2px;
+  text-overflow: ellipsis;
+
+  /* Needed to make it work */
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .productPagePrice{
@@ -949,8 +1024,8 @@ select option:first-child{
 }
 
 .productPageText {
-  width: 100%;
-  text-justify: center;
+  margin: 0;
+  text-align: left;
 }
 
 .productPageCategory {
@@ -982,7 +1057,6 @@ select option:first-child{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  background: var(--clr-gray);
 }
 
 /*------------------------------- Shop -------------------------------*/
@@ -1030,13 +1104,29 @@ select option:first-child{
   top: 30%;
 }
 
+
 .shopDisplayWrapper {
   width: 80%;
   background: var(--clr-light);
 }
 
+
+@media (max-width: 855px) {
+  .stickyFilters,
+  .leftSideBarWrapper {
+    width: 40%;
+  }
+  .shopDisplayWrapper {
+    width: 60%;
+  }
+}
+
 .filterCategoryHeader {
   text-transform: uppercase;
+  background: var(--clr-gray2);
+  text-align: center;
+  padding: .2em;
+  border-radius: 2px;
 }
 
 .checkboxList,
@@ -1234,6 +1324,15 @@ select option:first-child{
   height: 2.4rem;
 }
 
+@media (max-width: 855px) {
+  .searchSelectWrapper,
+  .searchDropdown,
+  .searchSelect,
+  .verticalRuleSmall {
+    display: none;
+  }
+}
+
 .searchSelect {
   border-radius: 2px;
   border: 0;
@@ -1258,12 +1357,23 @@ select option:first-child{
   display: flex;
 }
 
+
 .cartLeft {
   width: 50%;
 }
 
 .cartRight {
   width: 50%;
+}
+
+@media (max-width: 850px) {
+  .cartWrapper {
+    flex-direction: column;
+  }
+  .cartLeft,
+  .cartRight {
+    width: 100%;
+  }
 }
 
 .itemLength {
@@ -1421,10 +1531,10 @@ select option:first-child{
 .horizontalRule {
   background: linear-gradient(
     90deg, 
-    rgba(51, 74, 82, 0) 10%, 
-    var(--clr-neighbor2) 30%, 
-    var(--clr-neighbor2) 70%, 
-    rgba(51, 74, 82, 0) 90%
+    rgba(51, 74, 82, 0) 0%, 
+    var(--clr-neighbor2) 15%, 
+    var(--clr-neighbor2) 85%, 
+    rgba(51, 74, 82, 0) 100%
   );
   height: 1px;
 }

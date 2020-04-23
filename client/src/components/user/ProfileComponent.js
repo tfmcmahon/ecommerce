@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import Layout from '../layout/LayoutComponent'
 import { isAuthenticated, getUser } from '../../actions/authActions'
 import { readUser, updateUser, updateUserLocal } from '../../actions/userActions'

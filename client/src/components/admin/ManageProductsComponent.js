@@ -57,8 +57,8 @@ const ManageProducts = () => {
 
     return (
         <Layout 
-        title='Manage Products'
-        description='Perform CRUD on products'
+        title='Manage Posters'
+        description='Perform CRUD on posters'
         >
             <div className='productDBWrapper'>
                 { loading

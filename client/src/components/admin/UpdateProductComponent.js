@@ -230,8 +230,8 @@ const UpdateProduct = (props) => {
 
     return (
         <Layout 
-        title='Update Product'
-        description='Update an existing product'
+        title='Update Poster'
+        description='Update an existing poster'
         >
             <div className="login">
                 <div className="loginWrapper">

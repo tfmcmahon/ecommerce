@@ -1,57 +1,80 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Layout from './LayoutComponent'
-import { getProducts } from '../../actions/productActions'
-import ProductCard from '../product/ProductCardComponent'
-import SearchBar from './SearchComponent'
+import ReactFreezeframe from 'react-freezeframe'
+import checkout from '../../images/Checkout.gif'
+import dashboard from '../../images/Dashboard.gif'
+import filters from '../../images/Filters.gif'
+import posterPage from '../../images/PosterPage.gif'
+import search from '../../images/Search.gif'
+
 
 const Landing = () => {
-    //state setup
-    const [productsBySold, setProductsBySold] = useState([])
-    const [productsByArrival, setProductsByArrival] = useState([])
-
-
-    useEffect(() => {
-        //product sort methods -- call on mount
-        getProducts('createdAt')
-        .then(data => {
-            if (data.data.error) {          
-                console.log(data.data.error)
-            } else {                        //if no error, set the product state
-                setProductsByArrival(data.data)
-            }
-        })
-        getProducts('sold')
-        .then(data => {
-            if (data.data.error) {          
-                console.log(data.data.error)
-            } else {                        //if no error, set set the product state
-                setProductsBySold(data.data)
-            }
-        })
-    }, [])
 
     return (
         <Layout 
-        title='Home Page'
-        description='MERN E-commerce App'
+        title='Welcome to the Poster Shop App'
+        description='A full stack web application built with Node, Express Mongoose, and React'
         >
-            <SearchBar />
-            <div className='horizontalRule'></div>
-            <div className='sectionWrapper'>
-                <h3 className="productCategoryHeader">New Arrivals</h3>
-                <div className='productCardWrapper'>
-                    {productsByArrival.map((product, index) => (
-                        <ProductCard key={index} product={product}/>
-                    ))}
-                </div>
+            <div className="walkThroughIntro">  
+                <p>
+                    Check out the app features below. Hover over the images to see it in action:
+                </p>
             </div>
-                <div className='horizontalRule'></div>
-            <div className='sectionWrapper'>
-                <h3 className="productCategoryHeader">Top Sellers</h3>
-                <div className='productCardWrapper'>
-                    {productsBySold.map((product, index) => (
-                        <ProductCard key={index} product={product}/>
-                    ))}
+            <div className="walkthroughWrapper">
+                <div className="walkthroughItem">
+                    <h3 className="walkThroughName">Search bar</h3>
+                    <div className="gif">
+                        <ReactFreezeframe src={search} />
+                    </div>
+                    <p className="walkThroughText">
+                        Use the search bar to search the poster shop.
+                        The category drop down can be used to narrow down posters by genre.
+                    </p>
+                </div>
+
+                <div className="walkthroughItem">
+                    <h3 className="walkThroughName">Shop filters</h3>
+                    <div className="gif">
+                        <ReactFreezeframe src={filters} />
+                    </div>
+                    <p className="walkThroughText">
+                        The app allows the user to filter the shop by category or price.
+                        The categories are populated dynamically based on the existing categories in the back-end.
+                    </p>
+                </div>
+
+                <div className="walkthroughItem">
+                    <h3 className="walkThroughName">Poster page</h3>
+                    <div className="gif">
+                        <ReactFreezeframe src={posterPage} />
+                    </div>
+                    <p className="walkThroughText">
+                        The app will produce a poster info page which contains larger artwork.
+                        The front-end sends paramaters to the back-end where all of the images are stored.
+                    </p>
+                </div>
+
+                <div className="walkthroughItem">
+                    <h3 className="walkThroughName">Checkout</h3>
+                    <div className="gif">
+                        <ReactFreezeframe src={checkout} />
+                    </div>
+                    <p className="walkThroughText">
+                        The app is integrated with Braintree as a payment service.
+                        Payments can be processed only after an address is entered.
+                        Try making up credentials to test it (card number must start with "4111").
+                    </p>
+                </div>
+
+                <div className="walkthroughItem">
+                    <h3 className="walkThroughName">Dashboard</h3>
+                    <div className="gif">
+                        <ReactFreezeframe src={dashboard} />
+                    </div>
+                    <p className="walkThroughText">
+                        Each user can access their dashboard where they can see their complete purchase history.
+                        They can also update their profile by following the appropriate link.
+                    </p>
                 </div>
             </div>
         </Layout>

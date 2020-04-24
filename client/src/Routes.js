@@ -7,6 +7,7 @@ import PrivateRoute from './components/auth/PrivateRoute'
 import AdminRoute from './components/auth/AdminRoute'
 //layout routes
 import Landing from './components/layout/LandingComponent'
+import NewHot from './components/layout/NewHotComponent'
 import Nav from './components/layout/NavComponent'
 import Footer from './components/layout/FooterComponent'
 //user routes
@@ -34,6 +35,7 @@ const Routes = () => {
                 <Nav />
                 <Switch>
                     <Route exact path='/' component={Landing} />
+                    <Route exact path='/search' component={NewHot} />
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/register' component={Register} />
                     <Route exact path='/shop' component={Shop} />

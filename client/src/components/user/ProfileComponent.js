@@ -137,7 +137,7 @@ const Profile = () => {
     return (
         <Layout
         title='Profile'
-        description={`View or update your profile settings`}
+        description='View or update your profile settings'
         >
             <div className="loginWrapper">
                 <div className="loginForm">

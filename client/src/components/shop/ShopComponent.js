@@ -40,13 +40,12 @@ const Shop = () => {
                 } else {
                     setFilteredResults(data.data.products)
                     setSize(data.data.size)
-                    setSkip(0)
                 }
             })                  
     }, [])
     
     const getFilteredResults = sentFilters => {
-        getFilteredProducts(skip, limit, sentFilters)
+        getFilteredProducts(0, limit, sentFilters)          // 0 = reset skip value when selecting a filter
             .then(data => {
                 if (data.data.error) {
                     console.log(data.data.error)
@@ -110,7 +109,7 @@ const Shop = () => {
     return (
         <Layout
             title='Shop'
-            description='filter the product database'
+            description='use the filters to browse the poster shop'
         >
             <div className='shopWrapper'>
                 <div className='leftSideBarWrapper'>

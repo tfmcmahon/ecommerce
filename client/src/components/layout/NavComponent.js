@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { logout, isAuthenticated, getUser } from '../../actions/authActions'
 import { cartItemTotal } from '../../actions/cartActions'
@@ -19,7 +19,8 @@ const Nav = ({ history }) => { //history is destructured from props
                 <div className="headerHelp">
                     <Link to="/" className="headerLink">
                         <div className="headerHelpType">
-                            <p className="headerProjectTitle">Ecommerce</p>
+                            <p className="headerProjectTitle">Poster</p>
+                            <p className="headerProjectTitle">Shop</p>
                             <p className="headerProjectTitle">App</p>
                         </div>
                     </Link>
@@ -37,32 +38,37 @@ const Nav = ({ history }) => { //history is destructured from props
                 <div className="headerHelp">
 
                     {isAuthenticated() && getUser().role === 0 &&
-                        <Link to='/user/dashboard'> 
-                            <button
-                                style={isActive(history, '/user/dashboard')}
-                                className="homeButton"
-                            >
-                                Dashboard
-                            </button>
-                        </Link>
+                        <Fragment>
+                            <Link to='/user/dashboard'> 
+                                <button
+                                    style={isActive(history, '/user/dashboard')}
+                                    className="homeButton"
+                                >
+                                    Dashboard
+                                </button>
+                            </Link>
+                            <div className="verticalRuleSmallWhite"></div>
+                        </Fragment>
                     }
                     
                     {isAuthenticated() && getUser().role === 1 &&
-                        <Link to='/admin/dashboard'> 
-                            <button
-                                style={isActive(history, '/admin/dashboard')}
-                                className="homeButton"
-                            >
-                                Dashboard
-                            </button>
-                        </Link>
+                        <Fragment>
+                            <Link to='/admin/dashboard'> 
+                                <button
+                                    style={isActive(history, '/admin/dashboard')}
+                                    className="homeButton"
+                                >
+                                    Dashboard
+                                </button>
+                            </Link>
+                            <div className="verticalRuleSmallWhite"></div>
+                        </Fragment>
                     }
 
-                    <div className="verticalRuleSmallWhite"></div>
 
                     {!isAuthenticated() && 
                         <div className="navButtonRow">
-                            <Link to='/register'> 
+                            <Link to='/register' className='navGroup'> 
                                 <button
                                     style={isActive(history, '/register')}
                                     className="navButton"
@@ -70,7 +76,7 @@ const Nav = ({ history }) => { //history is destructured from props
                                     Register
                                 </button>
                             </Link>
-                            <Link to='/login'> 
+                            <Link to='/login' className='navGroup'> 
                                 <button
                                     style={isActive(history, '/login')}
                                     className="navButton"
@@ -87,7 +93,7 @@ const Nav = ({ history }) => { //history is destructured from props
                             style={{ cursor: 'pointer', background: '#303030' }}
                             className="navButton"
                             onClick={() => logout(() => {
-                                history.push('/')
+                                history.push('/search')
                             })}
                         >
                             Logout
@@ -95,7 +101,7 @@ const Nav = ({ history }) => { //history is destructured from props
                     }
 
                     <div className="verticalRuleSmallWhite"></div>
-                    <Link to='/shop'> 
+                    <Link to='/shop' className='navGroup'> 
                         <button
                             style={isActive(history, '/shop')}
                             className="homeButton"
@@ -103,7 +109,15 @@ const Nav = ({ history }) => { //history is destructured from props
                             Shop
                         </button>
                     </Link>
-                    <Link to='/cart'> 
+                    <Link to='/search' className='navGroup'> 
+                        <button
+                            style={isActive(history, '/search')}
+                            className="homeButton"
+                        >
+                            New+Hot
+                        </button>
+                    </Link>
+                    <Link to='/cart' className='navGroup'> 
                         <button
                             style={isActive(history, '/cart')}
                             className="homeButton"

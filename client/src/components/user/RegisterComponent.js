@@ -123,7 +123,7 @@ const Register = () => {
     return (
         <Layout 
         title='Registration Page'
-        description='Register for the MERN E-commerce App'
+        description='Register for the Poster shop App'
         >
             <div className="login">
                 <div className="loginWrapper">
@@ -139,7 +139,7 @@ const Register = () => {
                     </Link>
                 </p>
                 <p className="registerLinkText">Back to 
-                    <Link to="/"> 
+                    <Link to="/search"> 
                         <b className="registerLinkTextBold"> Home</b>
                     </Link>
                 </p>

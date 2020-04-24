@@ -86,7 +86,7 @@ const AddCategory = () => {
     return (
         <Layout 
         title='Create Categories'
-        description='Create a new product category'
+        description='Create a new poster category'
         >
             <div className="login">
                 <div className="loginWrapper">

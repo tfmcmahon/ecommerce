@@ -82,7 +82,7 @@ const Dashboard = () => {
                     { history.length > 0
                     ? history.map((hist, hIndex) =>{
                         return (
-                            <li className='dashboardListItem'>
+                            <li className='dashboardListItem' key={hIndex}>
                                 {hist.products.map((product, pIndex) => {
                                     return(
                                         <ul key={pIndex} className='orderListPH'>
@@ -107,7 +107,7 @@ const Dashboard = () => {
     return (
         <Layout
         title='Dashboard'
-        description={`Welcome, ${name}!`}
+        description={`Welcome, ${name}! Navigate the app and View your order history`}
         >
             <div className="loginWrapper">
                 <div className='dashboardRow'>

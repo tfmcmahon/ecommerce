@@ -90,8 +90,8 @@ const Orders = () => {
 
     return (
         <Layout
-            title='Product Orders'
-            description={`View and manage all orders`}
+            title='Poster Orders'
+            description='View and manage all orders'
         >
             <div className='sectionWrapper'>
                 {showOrdersLength()}

@@ -80,7 +80,7 @@ const ProductCard = ({
                 }}
                 className="navButton"
             >
-                Remove Product
+                Remove
             </button>
         )
     }
@@ -105,7 +105,7 @@ const ProductCard = ({
                         <button
                             className="productButton"
                         >
-                            View Product
+                            View Poster
                         </button>
                     </Link>
                     {cartButton(showAddToCartButton)}

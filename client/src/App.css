@@ -278,6 +278,14 @@ a:hover {
   height:600px;
 }
 
+.homeButton + .homeButton {
+  margin-left: .5em;
+}
+
+.navGroup + .navGroup {
+  margin-left: -.5em;
+}
+
 /*------------------------------- Header -------------------------------*/
 
 .App-header {
@@ -941,7 +949,8 @@ select option:first-child{
   text-align: left;
 }
 
-.productCardPrice {
+.productCardPrice,
+.productPagePrice {
   background: var(--clr-gray2);
   font-size: var(--fs-body);
   font-weight: var(--fw-bold);
@@ -949,6 +958,10 @@ select option:first-child{
   padding: .33em 1em;
   border-radius: 3px;
   text-align: center;
+}
+
+.productPagePrice {
+  margin-bottom: 0;
 }
 
 .productButtonRow{
@@ -1023,10 +1036,6 @@ select option:first-child{
   /* Needed to make it work */
   overflow: hidden;
   white-space: nowrap;
-}
-
-.productPagePrice{
-  margin-bottom: 1.5em;
 }
 
 .productPageText {
@@ -1108,6 +1117,7 @@ select option:first-child{
 .stickyFilters {
   position: fixed;
   top: 30%;
+  width: inherit;
 }
 
 
@@ -1402,6 +1412,7 @@ select option:first-child{
   border: 1px solid var(--clr-neighbor3);
   border-right: none;
   user-select: none;
+  width: 8em;
 }
 
 .incrementInput {
@@ -1702,6 +1713,71 @@ select option:first-child{
 
 .socialListlink {
   padding: 10em;
+}
+
+/*------------------------------- Walkthrough -------------------------------*/
+
+
+.walkThroughIntro {
+  width: 66%;
+  margin: auto;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.25em;
+}
+
+.walkthroughWrapper {
+  margin-top: 2em;
+  margin-bottom: 5em;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.walkthroughItem {
+  display: grid;
+  grid-template-areas: 
+  "header header header"
+  "gif gif gif"
+  "gif gif gif"
+  "gif gif gif"
+  "text text text";
+  margin: .5em 1em;
+  width: 512px;
+}
+
+.gif {
+  grid-area: gif;
+  border: 1px solid var(--clr-neighbor2);
+  height: 512px;
+}
+
+.walkThroughName {
+  grid-area: header;
+  margin: 1em 0em;
+  padding: .5em 0em;
+  border-radius: 3px;
+  color: var(--clr-light);
+  background: var(--clr-accent);
+  text-transform: uppercase;
+  align-self: center;
+  text-align: center;
+  font-size: var(--fs-h3);
+  border-style: solid;
+  border-width: 0px;
+  border-bottom-width: 2px;
+  border-color: var(--clr-dark);
+}
+
+.walkThroughText {
+  grid-area: text;
+  line-height: 18px;
+  height: 60px;
+  margin: 0;
+  margin-top: 1em;
 }
 
 /*------------------------------- Errors -------------------------------*/

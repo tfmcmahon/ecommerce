@@ -109,14 +109,14 @@ const Login = () => {
             }
         }
         if (isAuthenticated()) {
-            return <Redirect to='/' />
+            return <Redirect to='/search' />
         }
     }
 
     return (
         <Layout 
         title='Login Page'
-        description='Login to the App'
+        description='Login to the Poster shop App'
         >
             <div className="login">
                 <div className="loginWrapper">
@@ -132,7 +132,7 @@ const Login = () => {
                     </Link>
                 </p>
                 <p className="registerLinkText">Back to 
-                    <Link to="/"> 
+                    <Link to="/search"> 
                         <b className="registerLinkTextBold"> Home</b>
                     </Link>
                 </p>

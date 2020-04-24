@@ -67,7 +67,7 @@ const AdminDashboard = () => {
     return (
         <Layout
         title='Admin Dashboard'
-        description={`Welcome, ${name}! Create Categories, Products, and view Orders`}
+        description={`Welcome, ${name}! Create Categories, Posters, and view Orders`}
         >
             <div className='dashboardWrapperAdmin'>
                 {adminInfo()}

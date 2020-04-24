@@ -118,7 +118,6 @@ const Checkout = ({
                             createOrder(userId, token, orderData)
                                 .then(response => {
                                     emptyCart(() => {
-                                        console.log('cart emptied')
                                         setRun(!run); // run useEffect in parent Component so that the emptied cart updates
                                         setValues({
                                             ...values,

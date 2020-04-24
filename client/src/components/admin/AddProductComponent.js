@@ -226,8 +226,8 @@ const AddProduct = () => {
 
     return (
         <Layout 
-        title='Create Product Form'
-        description='Add a new product'
+        title='Create Poster Form'
+        description='Add a new poster'
         >
             <div className="login">
                 <div className="loginWrapper">

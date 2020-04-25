@@ -69,6 +69,7 @@ exports.deleteCategory = (req, res) => {
 
 exports.listAllCategories = (req, res) => {
     EcommerceCategory.find()
+                     .sort('name')
                      .exec((err, data)=> {
                          if (err) {
                             return res.status(400)

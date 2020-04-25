@@ -3,7 +3,11 @@ const expressJwt = require('express-jwt')
 const EcommerceUser = require('../models/userModel')
 const { errorHandler } = require('../helpers/dbErrorHandler')
 
-exports.register = (req, res) => {
+exports.register = async (req, res) => {
+/*     const user = await EcommerceUser.create(req.body)
+    res.status(201).json(user) */
+
+      
     const user = new EcommerceUser(req.body)
     user.save((err, user) => {
         //on error, send to the error helper to generate db error message
@@ -15,10 +19,12 @@ exports.register = (req, res) => {
         }
         user.salt = undefined
         user.hashedPassword = undefined
-        res.json({
-            user
-        })
-    })
+        res.status(201)
+           .json({
+               user
+           })
+    }) 
+    
 }
 
 exports.login = (req, res) => {
@@ -64,7 +70,7 @@ exports.logout = (req, res) => {
 
 //require the user to be signed in
 exports.requireLogin = expressJwt({
-    secret: process.env.JWT_SECRET,
+    secret: process.env.JWT_SECRET || 1234,
     userProperty: 'auth'
 })
 

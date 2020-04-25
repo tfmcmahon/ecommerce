@@ -4,8 +4,7 @@ const router = express.Router()
 const { 
     register, 
     login, 
-    logout,
-    requireLogin
+    logout
 } = require('../controllers/authController')
 const { userRegisterValidator } = require('../validators/index')
 

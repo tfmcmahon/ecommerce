@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Layout from './LayoutComponent'
 import ReactFreezeframe from 'react-freezeframe'
 import checkout from '../../images/Checkout.gif'
@@ -17,8 +18,25 @@ const Landing = () => {
         >
             <div className="walkThroughIntro">  
                 <p>
-                    Check out the app features below. Hover over the images to see it in action:
+                    Check out the app features below. Hover over the images to see them in action, or use the buttons to get started:
                 </p>
+                <div className="landingButtonRow">
+                    <Link to='/register'> 
+                        <button
+                            className="navButton"
+                        >
+                            Register
+                        </button>
+                    </Link>
+                    <div className='verticalRuleSmall'></div>
+                    <Link to='/shop'> 
+                        <button
+                            className="shopButtonLanding"
+                        >
+                            Shop
+                        </button>
+                    </Link>
+                </div>
             </div>
             <div className="walkthroughWrapper">
                 <div className="walkthroughItem">
@@ -72,7 +90,7 @@ const Landing = () => {
                         <ReactFreezeframe src={dashboard} />
                     </div>
                     <p className="walkThroughText">
-                        Each user can access their dashboard where they can see their complete purchase history.
+                        Users can access their complete purchase history from the dashboard.
                         They can also update their profile by following the appropriate link.
                     </p>
                 </div>

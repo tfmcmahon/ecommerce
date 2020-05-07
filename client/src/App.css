@@ -176,7 +176,8 @@ a:hover {
 .searchButton,
 .cartButton,
 .payButton,
-.productPageButton {
+.productPageButton,
+.shopButtonLanding {
   display: inline-block;
   padding: .5em 1em;
   background: var(--clr-neighbor2);
@@ -203,11 +204,16 @@ a:hover {
   .productButton,
   .searchButton,
   .payButton,
-  .productPageButton {
+  .productPageButton,
+  .shopButtonLanding {
     font-size: .6rem;
     margin: .5em;
     height: 40px;
   }
+}
+
+.shopButtonLanding {
+  width: 7.9em;
 }
 
 .submitLoginButton {
@@ -266,7 +272,8 @@ a:hover {
 .productPageButton:hover,
 .searchButton:hover,
 .cartButton:hover,
-.payButton:hover {
+.payButton:hover,
+.shopButtonLanding:hover {
   transform: scale(1.05);
 }
 
@@ -284,6 +291,12 @@ a:hover {
 
 .navGroup + .navGroup {
   margin-left: -.5em;
+}
+
+.landingButtonRow {
+  display: flex;
+  margin: auto;
+  justify-content: center;
 }
 
 /*------------------------------- Header -------------------------------*/
@@ -1719,10 +1732,8 @@ select option:first-child{
 
 
 .walkThroughIntro {
-  width: 66%;
   margin: auto;
-  margin-top: 2em;
-  margin-bottom: 2em;
+  margin: 2em;
   align-items: center;
   justify-content: center;
   text-align: center;

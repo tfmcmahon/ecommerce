@@ -84,7 +84,6 @@ const Dashboard = () => {
                         return (
                             <li className='dashboardListItem' key={hIndex}>
                                 {hist.products.map((product, pIndex) => {
-                                    console.log(product.createdAt)
                                     return(
                                         <ul key={pIndex} className='orderListPH'>
                                             {showInput('Product name', product.name)}

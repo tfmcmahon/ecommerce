@@ -39,7 +39,6 @@ const SearchBar = () => {
                     if (data.data.error) {
                         console.log(data.data.error)
                     } else {
-                        console.log(data.data)
                         setValues({
                             ...values,
                             results: data.data,

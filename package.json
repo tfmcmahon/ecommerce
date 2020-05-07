@@ -1,7 +1,7 @@
 {
-  "name": "Poster shop app",
+  "name": "poster_shop_app",
   "version": "1.0.0",
-  "description": "A full stack e-commerce app",
+  "description": "A full stack e-commerce app built with MERN + Jest",
   "main": "server.js",
   "scripts": {
     "start": "nodemon server.js",

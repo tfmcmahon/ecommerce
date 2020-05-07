@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { API } from '../config/config'
 
 let options = {
     url: '',
@@ -13,7 +12,7 @@ let options = {
 
 
 export const getBraintreeClientToken = (userId, token) => {
-    options.url = `${API}/braintree/getToken/${userId}`
+    options.url = `/api/braintree/getToken/${userId}`
     options.method = 'GET'
     options.headers = {
         'Accept': 'application/json',
@@ -30,7 +29,7 @@ export const getBraintreeClientToken = (userId, token) => {
 }
 
 export const processPayment = (userId, token, paymentData) => {
-    options.url = `${API}/braintree/payment/${userId}`
+    options.url = `/api/braintree/payment/${userId}`
     options.method = 'POST'
     options.data = paymentData
     options.headers = {

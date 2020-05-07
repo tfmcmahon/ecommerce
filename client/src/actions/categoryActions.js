@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { API } from '../config/config'
-
 
 let options = {
     url: '',
@@ -13,7 +11,7 @@ let options = {
 }
 
 export const createCategory = (userId, token, category) => {
-    options.url = `${API}/category/create/${userId}`
+    options.url = `/api/category/create/${userId}`
     options.method = 'POST'
     options.data = JSON.stringify(category)
     options.headers = {
@@ -31,7 +29,7 @@ export const createCategory = (userId, token, category) => {
 }
 
 export const getCategories = () => {
-    options.url = `${API}/categories/all`
+    options.url = `/api/categories/all`
     options.method = 'GET'
     options.headers = ''
     return axios(options)

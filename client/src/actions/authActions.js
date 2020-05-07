@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { API } from '../config/config'
-
 
 let options = {
     url: '',
@@ -13,7 +11,7 @@ let options = {
 }
 
 export const register = user => {
-    options.url = `${API}/register`
+    options.url = `/api/register`
     options.method = 'POST'
     options.data = user
 
@@ -28,7 +26,7 @@ export const register = user => {
 }
 
 export const login = user => {
-    options.url = `${API}/login`
+    options.url = `/api/login`
     options.method = 'POST'
     options.data = user
     
@@ -75,7 +73,7 @@ export const logout = next => {
         localStorage.removeItem('jwt')
         localStorage.removeItem('user')
         next()
-        options.url = `${API}/logout`
+        options.url = `/api/logout`
         options.method = 'GET'
         options.headers = ''
         return axios(options)

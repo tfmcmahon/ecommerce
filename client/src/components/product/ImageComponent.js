@@ -1,5 +1,4 @@
 import React from 'react'
-import { API } from '../../config/config'
 
 const ProductImage = ({ item, url }) => {
 
@@ -7,7 +6,7 @@ const ProductImage = ({ item, url }) => {
         return (
             <div className='productImageWrapper'>
                 <img 
-                    src={`${API}/${url}/photo/${item._id}`} 
+                    src={`/api/${url}/photo/${item._id}`} 
                     alt={item.name}
                     className='productImage'
                 />

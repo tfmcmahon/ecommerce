@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { API } from '../config/config'
-
 
 let options = {
     url: '',
@@ -13,7 +11,7 @@ let options = {
 }
 
 export const createOrder = (userId, token, orderData) => {
-    options.url = `${API}/order/create/${userId}`
+    options.url = `/api/order/create/${userId}`
     options.method = 'POST'
     options.data = ({ order: orderData })
     options.headers = {
@@ -31,7 +29,7 @@ export const createOrder = (userId, token, orderData) => {
 }
 
 export const listOrders = (userId, token) => {
-    options.url = `${API}/orders/list/${userId}`
+    options.url = `/api/orders/list/${userId}`
     options.method = 'GET'
     options.headers = {
         'Accept': 'application/json',
@@ -47,7 +45,7 @@ export const listOrders = (userId, token) => {
 }
 
 export const getOrderStatus = (userId, token) => {
-    options.url = `${API}/orders/status/${userId}`
+    options.url = `/api/orders/status/${userId}`
     options.method = 'GET'
     options.headers = {
         'Accept': 'application/json',
@@ -64,7 +62,7 @@ export const getOrderStatus = (userId, token) => {
 
 
 export const updateOrderStatus = (orderId, userId, status, token) => {
-    options.url = `${API}/orders/${orderId}/status/${userId}`
+    options.url = `/api/orders/${orderId}/status/${userId}`
     options.method = 'PUT'
     options.data = { orderId, status }
     options.headers = {

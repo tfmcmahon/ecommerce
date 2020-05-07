@@ -1,6 +1,4 @@
 import axios from 'axios'
-import { API } from '../config/config'
-
 
 let options = {
     url: '',
@@ -13,7 +11,7 @@ let options = {
 }
 
 export const readUser = (userId, token) => {
-    options.url = `${API}/user/${userId}`
+    options.url = `/api/user/${userId}`
     options.method = 'GET'
     options.headers = {
         'Accept': 'application/json',
@@ -30,7 +28,7 @@ export const readUser = (userId, token) => {
 }
 
 export const updateUser = (userId, token, userData) => {
-    options.url = `${API}/user/${userId}`
+    options.url = `/api/user/${userId}`
     options.method = 'PUT'
     options.data = userData
     options.headers = {
@@ -63,7 +61,7 @@ export const updateUserLocal = (userData, next) => {
 }
 
 export const getOrderHistory = (userId, token) => {
-    options.url = `${API}/user/orders/${userId}`
+    options.url = `/api/user/orders/${userId}`
     options.method = 'GET'
     options.headers = {
         'Accept': 'application/json',

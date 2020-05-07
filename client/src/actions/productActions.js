@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { API } from '../config/config'
 import queryString from 'query-string'
 
 let options = {
@@ -21,7 +20,7 @@ let options = {
  */
 
 export const createProduct = (userId, token, product) => {
-    options.url = `${API}/product/create/${userId}`
+    options.url = `/api/product/create/${userId}`
     options.method = 'POST'
     options.data = product
     options.headers = {
@@ -39,7 +38,7 @@ export const createProduct = (userId, token, product) => {
 }
 
 export const getSingleProduct = productId => {
-    options.url = `${API}/product/${productId}`
+    options.url = `/api/product/${productId}`
     options.method = 'GET'
     options.headers = ''
     return axios(options)
@@ -52,7 +51,7 @@ export const getSingleProduct = productId => {
 }
 
 export const updateProduct = (productId, userId, token, product) => {
-    options.url = `${API}/product/${productId}/${userId}`
+    options.url = `/api/product/${productId}/${userId}`
     options.method = 'PUT'
     options.headers = {
         'Accept': 'application/json',
@@ -70,7 +69,7 @@ export const updateProduct = (productId, userId, token, product) => {
 }
 
 export const deleteProduct = (productId, userId, token) => {
-    options.url = `${API}/product/${productId}/${userId}`
+    options.url = `/api/product/${productId}/${userId}`
     options.method = 'DELETE'
     options.headers = {
         'Accept': 'application/json',
@@ -87,7 +86,7 @@ export const deleteProduct = (productId, userId, token) => {
 }
 
 export const getProducts = sortBy => {
-    options.url = `${API}/products?sortBy=${sortBy}&order=desc&limit=6`
+    options.url = `/api/products?sortBy=${sortBy}&order=desc&limit=6`
     options.method = 'GET'
     options.headers = ''
     return axios(options)
@@ -100,7 +99,7 @@ export const getProducts = sortBy => {
 }
 
 export const getAllProducts = sortBy => {
-    options.url = `${API}/products?sortBy=${sortBy}&order=desc&limit=undefined`
+    options.url = `/api/products?sortBy=${sortBy}&order=desc&limit=undefined`
     options.method = 'GET'
     options.headers = ''
     return axios(options)
@@ -118,7 +117,7 @@ export const getFilteredProducts = (skip = 0, limit = 6, filters = {}) => { //se
         skip,
         filters
     }
-    options.url = `${API}/products/search`
+    options.url = `/api/products/search`
     options.method = 'POST'
     options.data = JSON.stringify(data)
     options.headers = {
@@ -136,7 +135,7 @@ export const getFilteredProducts = (skip = 0, limit = 6, filters = {}) => { //se
 
 export const getSearchedProducts = searchData => {
     const query = queryString.stringify(searchData)
-    options.url = `${API}/products/user/search?${query}`
+    options.url = `/api/products/user/search?${query}`
     options.method = 'GET'
     options.headers = ''
     return axios(options)
@@ -149,7 +148,7 @@ export const getSearchedProducts = searchData => {
 }
 
 export const getRelatedProducts = productId => {
-    options.url = `${API}/products/related/${productId}`
+    options.url = `/api/products/related/${productId}`
     options.method = 'GET'
     options.headers = ''
     return axios(options)

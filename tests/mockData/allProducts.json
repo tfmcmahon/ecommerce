@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Test Poster",
+    "description": "This is a test object for use with jest.",
+    "price": "0",
+    "category": "this should be a category ObjectId",
+    "quantity": "1",
+    "photo": {}
+  },
+  {
+    "name": "Test Poster2",
+    "description": "This is another test object for use with jest.",
+    "price": "1",
+    "category": "this should be a category ObjectId",
+    "quantity": "0",
+    "photo": {}
+  }
+]

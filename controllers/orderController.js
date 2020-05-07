@@ -3,72 +3,66 @@ const { errorHandler } = require('../helpers/dbErrorHandler')
 
 
 //orderId param checker method
-exports.orderById = (req, res, next, id) => {
-        //look for the order with the id parameter
-        EcommerceOrder.findById(id)
-                      .populate('products.product', 'name price') //return the products, name, and price from the order schema
-                      .exec((err, order) => {
-                          if (err || !order) {
-                              return res.status(400).json({
-                                  error: 'Order not found.'
-                              })
-                          }
-                          //attach the order to the request
-                          req.order = order
-                          next()
-                      })
+exports.orderById = async (req, res, next, id) => {
+    try {
+        const order = await  EcommerceOrder.findById(id)
+            .populate('products.product', 'name price') //return the products, name, and price from the order schema
+        if (!order) {
+            return res.status(404).json({ error: 'Order not found.' }) 
+        }
+        req.order = order    
+        next()  
+    } catch (err) {
+        res.status(400).json({ error: errorHandler(err) }) 
+    }
 }
 
-exports.createOrder = (req, res) => {
+exports.createOrder = async (req, res) => {
     //attach the user onto the request (we have this info from our userId param checker ...
     //... which grabs userId from paramaters and then returns the profile from the DB)
     //we need this to satisfy our model requirements
     req.body.order.user = req.profile
-    const order = new EcommerceOrder(req.body.order)
-    order.save((err, data) => {
-        if (err) {
-            return res.status(400)
-                      .json({
-                          error: errorHandler(err)
-                      })
-        }
-        res.json(data)
-    })
+    try {
+        const data = await EcommerceOrder.create(req.body.order)
+        res.status(201).json(data)
+    } catch (err) {
+        res.status(500).json({ error: errorHandler(err) })
+    }
 }
 
-exports.listOrders = (req, res) => {
-    EcommerceOrder.find()
-        .populate('user', '_id name address')   //get the corresponding user and their info
-        .sort('-created')
-        .exec((err, orders) => {
-            if (err) {
-                return res.status(400)
-                          .json({
-                              error: errorHandler(err)
-                          })
-            }
-            res.json(orders)
-        })
+exports.listOrders = async (req, res) => {
+    try {
+        const orders = await EcommerceOrder.find()
+            .populate('user', '_id name address')   //get the corresponding user and their info
+            .sort('-created')
+        res.status(200).json(orders)   
+    } catch (err) {
+        res.status(400).json({ error: errorHandler(err) })
+    }
 }
 
-exports.getOrderStatus = (req, res) => {
+exports.getOrderStatus = async (req, res) => {
     //get the enum values from the order schema
-    res.json(EcommerceOrder.schema.path('status').enumValues)
+    await res.json(
+        EcommerceOrder
+            .schema
+            .path('status')
+            .enumValues
+    )
 }
 
-exports.updateOrderStatus = (req, res) => {
+exports.updateOrderStatus = async (req, res) => {
     //get the order by id (from front-end)
-    EcommerceOrder.update(
-            { _id: req.body.orderId },
-            { $set: { status: req.body.status } }, //update the status
-            (err, order) => {
-                if (err) {
-                    return res.status(400)
-                              .json({
-                                  error: errorHandler(err)
-                              })
-                }
-                res.json(order)                   //send the updated order back
-            }
-        )
+    const order = await EcommerceOrder.updateOne(
+        { _id: req.order._id },
+        { $set: { status: req.body.status } },     //update the status
+        {
+            new: true,
+            useFindAndModify: false
+        }
+    )
+    if (order.nModified < 1) {
+        return res.status(400).json({ error: 'Could not update order' })
+    }
+    res.status(200).json(order)             //send the mongoose info back
 }

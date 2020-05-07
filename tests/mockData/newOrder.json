@@ -1,0 +1,21 @@
+{
+  "products": [
+    {
+      "product": "5ea4925ed1b1d982e03c7bd4",
+      "name": "Test Poster",
+      "price": 0,
+      "count": 1
+    }  
+  ],
+  "transactionId": {},
+  "amount": 1,
+  "address": {            
+      "address1": "123 Jest Street",
+      "address2": "Apt Test",
+      "city": "Chicago",
+      "state": "IL",
+      "zip": 11111
+  },
+  "status": "Not processed",
+  "user": "5ea4925ed1b1d982e03c7bd4"
+}

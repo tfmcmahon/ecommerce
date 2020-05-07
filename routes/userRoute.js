@@ -17,9 +17,7 @@ const {
 // @desc    test route
 // @access  Private
 router.get('/user/secret/:userId', requireLogin, isAuth, isAdmin, (req, res) => {
-   res.json({
-       user: req.profile
-   }) 
+   res.json({ user: req.profile }) 
 })
 
 // @route   GET api/user/:userId

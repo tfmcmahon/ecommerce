@@ -5,84 +5,65 @@ const EcommerceProduct = require('../models/productModel')
 const { errorHandler } = require('../helpers/dbErrorHandler')
 
 //whenever there is a productId in paramaters, attach it to the request
-exports.productById = (req, res, next, id) => {
-    EcommerceProduct.findById(id)
-                    .populate('category')
-                    .exec((err, product) => {
-                        //if there is an error or no prouct, return an error message
-                        if (err || !product) {
-                            return res.status(400).json({
-                                error: 'Product not found.'
-                            })
-                        }
-                        //otherwise put the product into the request
-                        req.product = product
-                        next()
-                    })
+exports.productById = async (req, res, next, id) => {
+    try {
+        const product = await EcommerceProduct.findById(id).populate('category')
+        if (!product) {
+            return res.status(404).json({ error: 'Product not found.' }) 
+        }
+        req.product = product
+        next()
+    } catch (err) {
+        res.status(400).json({ error: errorHandler(err) }) 
+    }
 }
 
-exports.createProduct = (req, res) => {
+exports.createProduct = async (req, res) => {
     let form = new formidable.IncomingForm()
     form.keepExtensions = true
-    form.parse(req, (err, fields, files) => {
-        //return an error message if one exists
+    form.parse(req, async (err, fields, files) => {
         if (err) {
-            return res.status(400)
-                      .json({
-                          error: 'Image could not be uploaded.'
-                      })
+            return res.status(400).json({ error: 'Image could not be uploaded.' })
         }
-
-        //create the product
         let product = new EcommerceProduct(fields)
 
         //photo handling
         if (files.photo) {
             //limit maximum file size
             if (files.photo.size > 1000000) {
-                return res.status(400)
-                          .json({
-                              error: 'Image should be less than 1mb in size.'
-                          })
+                return res.status(400).json({ error: 'Image should be less than 1mb in size.' })
             }
             product.photo.data = fs.readFileSync(files.photo.path)
             product.photo.contentType = files.photo.type
         }
 
-        //save the product
-        product.save((err, data) => {
-            if (err) {
-                return res.status(400)
-                          .json({
-                              error: errorHandler(err)
-                          })
-            }
-            res.json({ data })
-        })
+        try {
+            const data = await product.save()
+            res.status(201).json({ data })
+        } catch (err) {
+            res.status(400).json({ error: errorHandler(err) })
+        }
     })
 }
 
-exports.readProduct = (req, res) => {
+exports.readProduct = async (req, res) => {
     //remove the photo from the product
     if (req.product.photo) {
         req.product.photo = undefined
     }
-    return res.json(req.product)
+    await res.status(200).json(req.product)
 }
 
-exports.updateProduct = (req, res) => {
+exports.updateProduct = async (req, res) => {
+
     let form = new formidable.IncomingForm()
     form.keepExtensions = true
-    form.parse(req, (err, fields, files) => {
-        //return an error message if one exists
+    form.parse(req, async (err, fields, files) => {
         if (err) {
-            return res.status(400)
-                      .json({
-                          error: 'Image could not be uploaded.'
-                      })
+            return res.status(400).json({ error: 'Image could not be uploaded.' })
         }
 
-        //create the product
+        //update the product
         let product = req.product
         product = lodash.extend(product, fields)
 
@@ -90,43 +71,33 @@ exports.updateProduct = (req, res) => {
         if (files.photo) {
             //limit maximum file size
             if (files.photo.size > 1000000) {
-                return res.status(400)
-                          .json({
-                              error: 'Image should be less than 1mb in size.'
-                          })
+                return res.status(400).json({ error: 'Image should be less than 1mb in size.' })
             }
             product.photo.data = fs.readFileSync(files.photo.path)
             product.photo.contentType = files.photo.type
         }
 
-        //save the product
-        product.save((err, data) => {
-            if (err) {
-                return res.status(400)
-                          .json({
-                              error: errorHandler(err)
-                          })
-            }
-            res.json({ data })
-        })
-    })
-}
-
-exports.deleteProduct = (req, res) => {
-    let product = req.product
-    product.remove((err, deletedProduct) => {
-        if (err) {
-            return res.status(400).json({
-                error: errorHandler(err)
-            })
+        try {
+            const data = await product.save()
+            res.status(201).json({ data })
+        } catch (err) {
+            res.status(400).json({ error: errorHandler(err) })
         }
-        res.json({
-            message: 'Product deleted successfully.'
-        })
     })
 }
 
-/* 
+exports.deleteProduct = async (req, res) => {
+    try {
+        let product = req.product
+        await product.remove()
+        res.status(200).json({ message: 'Product deleted successfully.' })
+    } catch (err) {
+        res.status(400).json({ error: errorHandler(err) })
+    }
+}
+
+/*************************************************************
+
                 *************************
                 * Front end interaction *
                 *************************
@@ -144,9 +115,10 @@ by arrivals =   /products
                 &limit=4            //max products to return
 
 ... or if no params are sent, then return all products
-*/
 
-exports.listProducts = (req, res) => {
+************************************************************/
+
+exports.listProducts = async (req, res) => {
     //check queries, assign defaults if none
     let order = req.query.order
         ? req.query.order
@@ -158,64 +130,56 @@ exports.listProducts = (req, res) => {
         ? parseInt(req.query.limit)
         : 6
 
-    let sortObject= {
+    let sortObject = {
         [sortBy]: order
     }
-    EcommerceProduct.find()
-                    .select('-photo')                //remove the photos so to save time, we will handle elsewhere
-                    .populate('category')            //adds the category, we can do this since we defined category in the product shcema
-                    .sort(sortObject)                //sort the result by the queries
-                    .limit(limit)                    //limit the amount of results
-                    .exec((err, products) => {
-                        if (err) {
-                            return res.status(400)
-                                      .json({
-                                          error: 'Products not found.'
-                                      })
-                        }
-                        res.json(products)
-                    })
+
+    try {
+        const products = await EcommerceProduct
+            .find()
+            .select('-photo')                       //remove the photos to save loading time
+            .populate('category')                   //adds the category, we can do this since we defined category in the product shcema
+            .sort(sortObject)                       //sort the result by the queries
+            .limit(limit)                           //limit the amount of results
+        res.status(200).json(products)
+    } catch (err) {
+        res.status(400).json({ error: 'Product(s) not found.' })
+    }
 }
 
 //find products based on the requested product's category
-exports.listRelatedProducts = (req, res) => {
+exports.listRelatedProducts = async (req, res) => {
     //check queries, assign defaults if none
     let limit = req.query.limit
         ? parseInt(req.query.limit)
         : 6
 
-    EcommerceProduct.find({ 
-                        _id: { $ne: req.product },      //find products that are not the requested product (ne = not equal to)
-                        category: req.product.category  //search by matching category
-                    })
-                    .limit(limit)
-                    .populate('category', '_id name')
-                    .exec((err, products) => {
-                        if (err) {
-                            return res.status(400)
-                                      .json({
-                                          error: 'Products not found.'
-                                      })
-                        }
-                        res.json(products)
-                    })
+        try {
+            const products = await EcommerceProduct
+                .find({ 
+                    _id: { $ne: req.product },               //find products that are not the requested product (ne = not equal to)
+                    category: req.product.category           //search by matching category
+                })
+                .limit(limit)
+                .populate('category', '_id name')
+            res.status(200).json(products)    
+        } catch (err) {
+            res.status(400).json({ error: 'Products not found.' })
+        }
 }
 
 //List categories with products in them
-exports.listProductCategories = (req, res) => {
-    EcommerceProduct.distinct('category', {}, (err, categories) => {
-        if (err) {
-            return res.status(400)
-                      .json({
-                          error: 'Categories not found.'
-                      })
-        }
-        res.json(categories)
-    })
+exports.listProductCategories = async (req, res) => {
+    try {
+        const categories = await EcommerceProduct.distinct('category', {})
+        res.status(200).json(categories)
+    } catch (err) {
+        res.status(400).json({ error: 'Categories not found.' })
+    }
 }
 
 
-exports.listProductsBySearch = (req, res) => {
+exports.listProductsBySearch = async (req, res) => {
     let order = req.body.order 
         ? req.body.order 
         : 'desc'
@@ -232,9 +196,6 @@ exports.listProductsBySearch = (req, res) => {
         [sortBy]: order
     }
  
-    // console.log(order, sortBy, limit, skip, req.body.filters);
-    // console.log('findArgs', findArgs);
- 
     for (let key in req.body.filters) {
         if (req.body.filters[key].length > 0) {
             if (key === 'price') {                      //format the price sorting input
@@ -248,23 +209,17 @@ exports.listProductsBySearch = (req, res) => {
         }
     }
  
-    EcommerceProduct.find(findArgs)
-           .select('-photo')
-           .populate('category')
-           .sort(sortObject)
-           .skip(skip)
-           .limit(limit)
-           .exec((err, products) => {
-               if (err) {
-                   return res.status(400).json({
-                       error: 'Products not found'
-                   })
-               }
-               res.json({
-                   size: products.length,
-                   products
-               })
-           })
+    try {
+        const products = await EcommerceProduct.find(findArgs)
+            .select('-photo')
+            .populate('category')
+            .sort(sortObject)
+            .skip(skip)
+            .limit(limit)
+        res.status(200).json({ size: products.length, products })   
+    } catch (err) {
+        res.status(400).json({ error: 'Products not found.' })
+    }
 }
 
 exports.productPhoto = (req, res, next) => {
@@ -275,11 +230,13 @@ exports.productPhoto = (req, res, next) => {
     next()
 }
 
-exports.listProductsByUserSearch = (req, res) => {
+exports.listProductsByUserSearch = async (req, res) => {
     //create object to hold search input and category select
     const searchObject = {}
     //assign search input to query.name and category value to query.category
-    if (req.query.search) {
+    if (!req.query.search) {
+        return res.status(400).json({ error: 'Search query is required.' })
+    } else {
         searchObject.name = {
             $regex: req.query.search,       //create a regex based on the search input from the user
             $options: 'i'                   //ignore case
@@ -287,20 +244,17 @@ exports.listProductsByUserSearch = (req, res) => {
         if (req.query.category && req.query.category != 'All') {
             searchObject.category = req.query.category
         }
-        // perform a db search with the search object
-        EcommerceProduct.find(searchObject, (err, products) => {
-            if (err) {
-                return res.status(400)
-                          .json({
-                              error: errorHandler(err)
-                          })
-            }
-            res.json(products)
-        }).select('-photo')
+        // perform a db search with the search object (remove photo for loading speed)
+        try {
+            const products = await EcommerceProduct.find(searchObject).select('-photo')
+            res.status(200).json(products)
+        } catch (err) {
+            res.status(400).json({ error: errorHandler(err) })
+        }
     }
 }
 
-exports.updateQuantityAndSold = (req, res, next) => {
+exports.updateQuantityAndSold = async (req, res, next) => {
     //map through all of the products in the order (attached to the request) 
     //in order to get the DB update options for each one
     let bulkOptions = req.body.order.products.map((product) => {
@@ -308,7 +262,7 @@ exports.updateQuantityAndSold = (req, res, next) => {
             updateOne: {
                 filter: { _id: product._id },       //get the product by id
                 update: {                           //define update fields ...
-                    $inc: {                         // includes ...
+                    $inc: {                         //includes ...
                         quantity: -product.count,   //quantity (decrement by count)
                         sold: +product.count        //sold (increment by count)
                     } 
@@ -317,13 +271,10 @@ exports.updateQuantityAndSold = (req, res, next) => {
         }
     })
 
-    EcommerceProduct.bulkWrite(bulkOptions, {}, (err, products) => {
-        if (err) {
-            return res.status(400)
-                      .json({
-                          error: 'Could not update product.'
-                      })
-        }
+    try {
+        await EcommerceProduct.bulkWrite(bulkOptions, {})
         next()
-    })
+    } catch (err) {
+        res.status(400).json({ error: 'Could not update product.' })
+    }
 }

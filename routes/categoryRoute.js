@@ -36,7 +36,7 @@ router.put('/category/:categoryId/:userId', requireLogin, isAuth, isAdmin, updat
 // @access  Admin
 router.delete('/category/:categoryId/:userId', requireLogin, isAuth, isAdmin, deleteCategory)
 
-// @route   GET api/category/all
+// @route   GET api/categories/all
 // @desc    List all categories
 // @access  Public
 router.get('/categories/all', listAllCategories)

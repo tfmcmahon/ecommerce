@@ -1,0 +1,12 @@
+{
+  "name": "Update Poster",
+  "description": "This is a test update object for use with jest.",
+  "price": 6,
+  "category": "this should be a category ObjectId",
+  "quantity": 2,
+  "photo": {
+    "data": [0,1,1],
+    "contentType": null
+  }
+}
+

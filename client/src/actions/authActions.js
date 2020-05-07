@@ -80,7 +80,7 @@ export const logout = next => {
         options.headers = ''
         return axios(options)
                 .then(response => {
-                    console.log('logout', response)
+                    return response                
                 })
                 .catch(err => console.log(err.response))
     }

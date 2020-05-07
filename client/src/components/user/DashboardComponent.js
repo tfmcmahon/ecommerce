@@ -84,11 +84,12 @@ const Dashboard = () => {
                         return (
                             <li className='dashboardListItem' key={hIndex}>
                                 {hist.products.map((product, pIndex) => {
+                                    console.log(product.createdAt)
                                     return(
                                         <ul key={pIndex} className='orderListPH'>
                                             {showInput('Product name', product.name)}
                                             {showInput('Product price', `$${product.price}`)}
-                                            {showInput('Purchase date', moment(product.createdAt).fromNow())}
+                                            {showInput('Purchase date', moment(hist.createdAt).fromNow())}
                                         </ul>
                                     )
                                 })}

@@ -41,7 +41,7 @@ router.put('/product/:productId/:userId', requireLogin, isAuth, isAdmin, updateP
 // @access  Admin
 router.delete('/product/:productId/:userId', requireLogin, isAuth, isAdmin, deleteProduct)
 
-// @route   GET api/products
+// @route   GET api/products?query
 // @desc    List products by query
 // @access  Public
 router.get('/products', listProducts)
@@ -61,8 +61,8 @@ router.get('/products/categories', listProductCategories)
 // @access  Public
 router.post('/products/search', listProductsBySearch)
 
-// @route   POST api/products/search
-// @desc    List products per search
+// @route   POST api/products/search?query
+// @desc    List products per user search
 // @access  Public
 router.get('/products/user/search', listProductsByUserSearch)
 

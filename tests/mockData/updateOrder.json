@@ -1,0 +1,14 @@
+{
+  "products": "products",
+  "transactionId": "5ea48f6d5cb578678819a2eb",
+  "amount": 10,
+  "address": {            
+    "address1": "123 Jest Street",
+    "address2": "apt 1",
+    "city": "Test",
+    "state": "IL",
+    "zip": "11111"
+  },
+  "status": "Not processed",
+  "user": "5ea48f6d5cb578678819a2eb"
+}

@@ -2,81 +2,66 @@ const EcommerceCategory = require('../models/categoryModel')
 const { errorHandler } = require('../helpers/dbErrorHandler')
 
 //whenever there is a category id param, attach it to the request
-exports.categoryById = (req, res, next, id) => {
-    EcommerceCategory.findById(id)
-                    .exec((err, category) => {
-                        //if there is an error or no prouct, return an error message
-                        if (err || !category) {
-                            return res.status(400).json({
-                                error: 'Category not found.'
-                            })
-                        }
-                        //otherwise put the product into the request
-                        req.category = category
-                        next()
-                    })
-}
-
-exports.createCategory = (req, res) => {
-    const category = new EcommerceCategory(req.body)
-    category.save((err, data) => {
-        if (err) {
-            console.log('err', err)
-            return res.status(400)
-                      .json({
-                          error: errorHandler(err)
-                      })
+exports.categoryById = async (req, res, next, id) => {
+    try {
+        const category = await EcommerceCategory.findById(id)
+        if (!category) {
+            return res.status(404).json({ error: 'Category does not exist.'})
         }
-        res.json({ data })
-    })
+        req.category = category
+        next()
+    } catch (err) {
+        res.status(400).json({ error: errorHandler(err)} )
+    }
 }
 
-exports.readCategory = (req, res) => {
-    return res.json(req.category)
+exports.createCategory = async (req, res) => {
+    try {
+        const data = await EcommerceCategory.create(req.body)
+        res.status(201).json({ data })
+    } catch (err) {
+        res.status(500).json({ error: errorHandler(err)} )
+    }
 }
 
-exports.updateCategory = (req, res) => {
-    const category = req.category
-    category.name = req.body.name
-    //save the category
-    category.save((err, data) => {
-        if (err) {
-            return res.status(400)
-                      .json({
-                          error: errorHandler(err)
-                      })
-        }
-        res.json({ data })
-    })
+exports.readCategory = async (req, res) => {
+    await res.status(200).json(req.category)
 }
 
-exports.deleteCategory = (req, res) => {
-    const category = req.category
-    category.name = req.body.name
-    //remove the category
-    category.remove((err, data) => {
-        if (err) {
-            return res.status(400)
-                      .json({
-                          error: errorHandler(err)
-                      })
-        }
-        res.json({
-            message: 'Category deleted successfully.'
-        })
-    })
+exports.updateCategory = async (req, res) => {
+    try {
+        const newCategory = req.category
+        newCategory.name = req.body.name
+        const data = await EcommerceCategory.findByIdAndUpdate(
+            newCategory._id, 
+            newCategory, 
+            {
+                new: true,
+                useFindAndModify: false
+            }
+        )
+        res.status(200).json({ data })
+    } catch (err) {
+        res.status(400).json({ error: errorHandler(err) })
+    }
 }
 
-exports.listAllCategories = (req, res) => {
-    EcommerceCategory.find()
-                     .sort('name')
-                     .exec((err, data)=> {
-                         if (err) {
-                            return res.status(400)
-                            .json({
-                                error: errorHandler(err)
-                            })
-                        }
-                        res.json({ data })
-                     })
+exports.deleteCategory = async (req, res) => {
+    try {
+        const category = req.category
+        category.name = req.body.name
+        await EcommerceCategory.deleteOne({ name: category.name })
+        res.status(200).json({ message: 'Category deleted successfully.' })
+    } catch (err) {
+        res.status(400).json({ error: errorHandler(err) })
+    }
+}
+
+exports.listAllCategories = async (req, res) => {
+    try {
+        const data = await EcommerceCategory.find().sort('name')
+        res.status(200).json({ data })
+    } catch (err) {
+        res.status(400).json({ error: errorHandler(err)} )
+    }
 }

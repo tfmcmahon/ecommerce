@@ -1,3 +1,4 @@
+const { seedDatabase } = require('./mockData/index')
 const mongoose = require('mongoose')
 mongoose.set('useCreateIndex', true)
 mongoose.promise = global.Promise
@@ -28,7 +29,7 @@ async function dropAllCollections() {
 }
 
 module.exports = {
-  setupDB(databaseName) {
+  setupDB(databaseName, runSaveMiddleware = false) {
     // Connect to Mongoose
     beforeAll(async () => {
       const url = `mongodb://127.0.0.1/${databaseName}`
@@ -36,6 +37,10 @@ module.exports = {
         useNewUrlParser: true,
         useUnifiedTopology: true
       })
+    })
+
+    beforeEach(async () => {
+      await seedDatabase(runSaveMiddleware)
     })
 
     // Cleans up database between each test

@@ -14,7 +14,7 @@ const Landing = () => {
     return (
         <Layout 
         title='Welcome to the Poster Shop App'
-        description='A full stack web application built with Node, Express Mongoose, and React'
+        description='A full stack web application built with Node, Express, Mongoose, and React. Tested with Jest.'
         >
             <div className="walkThroughIntro">  
                 <p>

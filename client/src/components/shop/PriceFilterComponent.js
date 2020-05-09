@@ -13,11 +13,11 @@ const PriceFilter = ({ prices, handleFilters }) => {
                 <input 
                     onChange={handleChange}
                     type='radio' 
-                    id={index} 
+                    id={index + 20} 
                     value={`${price._id}`}
                     name={price}
                 />
-                <label htmlFor={index} className='radioLabel'>
+                <label htmlFor={index + 20} className='radioLabel'>
                     {price.name}
                 </label>
             </li>

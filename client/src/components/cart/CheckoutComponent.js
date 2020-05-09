@@ -93,8 +93,7 @@ const Checkout = ({
                 ...values,
                 loading: true
             })
-            //Send nonce to server
-            //nonce = values.instance.requestPaymentMethod()
+            //Send payment info to the back-end (values.instance.requestPaymentMethod()
             let nonce
             values.instance.requestPaymentMethod()
                 .then(data => {
@@ -118,7 +117,7 @@ const Checkout = ({
                             createOrder(userId, token, orderData)
                                 .then(response => {
                                     emptyCart(() => {
-                                        setRun(!run); // run useEffect in parent Component so that the emptied cart updates
+                                        setRun(!run) // run useEffect in parent Component so that the emptied cart updates
                                         setValues({
                                             ...values,
                                             success: true,
@@ -292,7 +291,7 @@ const Checkout = ({
                                 }
                             }}
                             onInstance={instance => (values.instance = instance)}
-                            />
+                        />
                     </div>
                         <button 
                             className='payButton'

@@ -178,6 +178,7 @@ a:hover {
 .payButton,
 .productPageButton,
 .shopButtonLanding {
+  font-family: var(--ff-primary);
   display: inline-block;
   padding: .5em 1em;
   background: var(--clr-neighbor2);
@@ -192,6 +193,7 @@ a:hover {
   font-weight: var(--fw-bold);
   transition: transform 50ms linear;
   margin: 1em;
+  border-style: solid;
   border-width: 1px;
   border-bottom-width: 2px;
   border-color: black
@@ -1909,4 +1911,10 @@ select option:first-child{
   border-color: #a7ffae;
   color: green;
 
+}
+
+/*------------------------------- Firefox fixes -------------------------------*/
+
+br {
+  margin: .8em;
 }
